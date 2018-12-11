@@ -18,17 +18,13 @@
 </head>
 
 <body>
-	<nav style="display: none;" class="navbar" style="background-color: transparent;">
-		<a class="navbar-brand" href="#">
-			<img src="./resources/images/logo.png" width="30" height="30" alt="navbar-logo">
-		</a>
-
-		<button type="button" title="Show profile box" class="btn btn-outline-dark btn-sm">
-			+
+	<nav class="navbar" style="background-color: transparent;">
+		<button id="hide-navbar-button" title="Show profile box" type="button" style="display:none;" class="btn btn-sm p-0">
+			<img src="./resources/images/logo.png" width="30" height="30" alt="">
 		</button>
 	</nav>
 
-	<div class="container">
+	<div id="profile-div" class="container">
 		<div class="border border-dark rounded clearfix p-3 mt-5" style="background-color: rgba(220, 220, 220, .75);">
 			<div>
 				<img src="./resources/images/logo.png" class="float-left mr-3" alt="derivadadx-logo">
@@ -55,7 +51,7 @@
 		</div>
 
 		<div style="background-color: rgba(220, 220, 220, .75);">
-			<button class="btn btn-outline-dark btn-lg btn-block mt-3">
+			<button id="hide-profile-button" class="btn btn-outline-dark btn-lg btn-block mt-3">
 				Click me!
 			</button>
 		</div>
