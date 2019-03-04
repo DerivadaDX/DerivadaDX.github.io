@@ -44,7 +44,7 @@ new p5((p) => {
 			p.noStroke();
 			p.fill(r, g, b, alpha);
 			p.rotate(p.radians(p.frameCount));
-			p.rect(0, 0, size, size, borderRadius);
+			p.ellipse(0, 0, size, size);
 			p.pop();
 
 			// Other squares
