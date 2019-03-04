@@ -1,3 +1,4 @@
+/* BACKGROUND SKETCH */
 new p5((p) => {
 	p.setup = () => {
 		let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -12,9 +13,15 @@ new p5((p) => {
 	};
 });
 
+/* SLIDES SKETCHES */
+let sketchWidth, sketchHeight;
+
 new p5((p) => {
 	p.setup = () => {
-		p.createCanvas(p.windowWidth * 3 / 5, p.windowHeight * 3 / 5);
+		sketchWidth = p.select('#carousel_sketch_0').width;
+		sketchHeight = p.windowHeight * 3 / 5;
+
+		p.createCanvas(sketchWidth, sketchHeight);
 		p.background('red');
 	};
 
@@ -25,7 +32,7 @@ new p5((p) => {
 
 new p5((p) => {
 	p.setup = () => {
-		p.createCanvas(p.windowWidth * 3 / 5, p.windowHeight * 3 / 5);
+		p.createCanvas(sketchWidth, sketchHeight);
 		p.background('green');
 	};
 
@@ -36,11 +43,11 @@ new p5((p) => {
 
 new p5((p) => {
 	p.setup = () => {
-		p.createCanvas(p.windowWidth * 3 / 5, p.windowHeight * 3 / 5);
+		p.createCanvas(sketchWidth, sketchHeight);
 		p.background('blue');
 	};
 
 	p.draw = () => {
-		
+
 	};
 }, 'carousel_sketch_2');
