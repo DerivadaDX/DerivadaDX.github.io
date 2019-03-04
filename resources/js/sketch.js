@@ -17,6 +17,8 @@ new p5((p) => {
 let sketchWidth, sketchHeight;
 
 new p5((p) => {
+	const borderRadius = 5;
+
 	p.setup = () => {
 		sketchWidth = p.select('#carousel_sketch_0').width;
 		sketchHeight = p.windowHeight * 3 / 5;
@@ -42,15 +44,15 @@ new p5((p) => {
 			p.noStroke();
 			p.fill(r, g, b, alpha);
 			p.rotate(p.radians(p.frameCount));
-			p.rect(0, 0, size, size);
+			p.rect(0, 0, size, size, borderRadius);
 			p.pop();
 
 			// Other squares
 			if (p.frameCount % 5 === 0) {
 				p.fill(255 - r, 255 - g, 255 - b, alpha);
 			}
-			p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size);
-			p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size);
+			p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size, borderRadius);
+			p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size, borderRadius);
 		}
 	};
 }, 'carousel_sketch_0');
