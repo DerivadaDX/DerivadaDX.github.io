@@ -22,7 +22,7 @@ new p5((p) => {
 		sketchHeight = p.windowHeight * 3 / 5;
 
 		p.createCanvas(sketchWidth, sketchHeight);
-		p.background(p.color(55, 105, 75));
+		p.background(55, 105, 75);
 		p.rectMode(p.CENTER);
 		p.smooth();
 	};
@@ -40,14 +40,14 @@ new p5((p) => {
 			// center square
 			p.push();
 			p.noStroke();
-			p.fill(p.color(r, g, b, alpha));
+			p.fill(r, g, b, alpha);
 			p.rotate(p.radians(p.frameCount));
 			p.rect(0, 0, size, size);
 			p.pop();
 
 			// Other squares
 			if (p.frameCount % 5 === 0) {
-				p.fill(p.color(255 - r, 255 - g, 255 - b, alpha));
+				p.fill(255 - r, 255 - g, 255 - b, alpha);
 			}
 			p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size);
 			p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size);
