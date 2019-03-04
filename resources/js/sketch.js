@@ -26,7 +26,7 @@ new p5((p) => {
 	};
 
 	p.draw = () => {
-		
+		p.ellipse(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
 	};
 }, 'carousel_sketch_0');
 
@@ -34,10 +34,11 @@ new p5((p) => {
 	p.setup = () => {
 		p.createCanvas(sketchWidth, sketchHeight);
 		p.background('green');
+		p.rectMode(p.CENTER);
 	};
 
 	p.draw = () => {
-		
+		p.rect(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
 	};
 }, 'carousel_sketch_1');
 
@@ -48,6 +49,7 @@ new p5((p) => {
 	};
 
 	p.draw = () => {
-
+		p.fill('yellow');
+		p.arc(p.canvas.width / 2, p.canvas.height / 2, 200, 200, p.QUARTER_PI, -p.QUARTER_PI, p.PIE);
 	};
 }, 'carousel_sketch_2');
