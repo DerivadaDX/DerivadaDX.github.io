@@ -22,11 +22,36 @@ new p5((p) => {
 		sketchHeight = p.windowHeight * 3 / 5;
 
 		p.createCanvas(sketchWidth, sketchHeight);
-		p.background('red');
+		p.background(p.color(55, 105, 75));
+		p.rectMode(p.CENTER);
+		p.smooth();
 	};
 
 	p.draw = () => {
-		p.ellipse(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
+		p.translate(p.width / 2, p.height / 2);
+
+		if (!p.mouseIsPressed) {
+			let size = p.constrain(p.mouseY / 3, 10, p.mouseY / 3),
+				r = p.random(256),
+				g = p.random(256),
+				b = p.random(256),
+				alpha = p.random(256);
+
+			// center square
+			p.push();
+			p.noStroke();
+			p.fill(p.color(r, g, b, alpha));
+			p.rotate(p.radians(p.frameCount));
+			p.rect(0, 0, size, size);
+			p.pop();
+
+			// Other squares
+			if (p.frameCount % 5 === 0) {
+				p.fill(p.color(255 - r, 255 - g, 255 - b, alpha));
+			}
+			p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size);
+			p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size);
+		}
 	};
 }, 'carousel_sketch_0');
 
