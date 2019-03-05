@@ -14,8 +14,7 @@ new p5((p) => {
 });
 
 /* SLIDES SKETCHES */
-let sketchWidth, sketchHeight,
-	initialize = true;
+let sketchWidth, sketchHeight;
 
 const sketches = [
 	{
@@ -25,16 +24,16 @@ const sketches = [
 			const borderRadius = 5;
 
 			p.setup = () => {
-				if (initialize) {
-					sketchWidth = p.select('#carousel_sketch_0').width;
-					sketchHeight = p.windowHeight * 3 / 5;
-					initialize = false;
-				}
+				const carousel = p.select('#main_carousel');
 
-				p.createCanvas(sketchWidth, sketchHeight);
+				p.createCanvas(carousel.width, carousel.height);
 				p.background(55, 105, 75);
 				p.rectMode(p.CENTER);
 				p.smooth();
+
+				sketches[0].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
@@ -70,15 +69,15 @@ const sketches = [
 		parent: 'carousel_sketch_1',
 		fn: (p) => {
 			p.setup = () => {
-				if (initialize) {
-					sketchWidth = p.select('#carousel_sketch_1').width;
-					sketchHeight = p.windowHeight * 3 / 5;
-					initialize = false;
-				}
+				const carousel = p.select('#main_carousel');
 
 				p.createCanvas(sketchWidth, sketchHeight);
 				p.background('green');
 				p.rectMode(p.CENTER);
+
+				sketches[1].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
@@ -91,14 +90,14 @@ const sketches = [
 		parent: 'carousel_sketch_2',
 		fn: (p) => {
 			p.setup = () => {
-				if (initialize) {
-					sketchWidth = p.select('#carousel_sketch_2').width;
-					sketchHeight = p.windowHeight * 3 / 5;
-					initialize = false;
-				}
+				const carousel = p.select('#main_carousel');
 
 				p.createCanvas(sketchWidth, sketchHeight);
 				p.background('blue');
+
+				sketches[2].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
