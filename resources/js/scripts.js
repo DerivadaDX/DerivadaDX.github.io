@@ -2,11 +2,12 @@ $().ready(() => {
 	let once = true;
 	$('#carouselExampleIndicators').on('slid.bs.carousel', () => {
 		var index = $('div.active').index();
-		if (once && index > 0) {
-			for (let i = 0; i < sketches.length; i++) {
-				new p5(sketches[i], `carousel_sketch_${i}`);
+		if (index > 0) {
+			let sketch = sketches[index - 1];
+			if (!sketch.initialized) {
+				new p5(sketch.fn, sketch.parent);
+				sketch.initialized = true;
 			}
-			once = false;
 		}
 	});
 });
