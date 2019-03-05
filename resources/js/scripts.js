@@ -1,5 +1,5 @@
 $().ready(() => {
-	const carousel = $('#carouselExampleIndicators');
+	const carousel = $('#main-carousel');
 
 	carousel.height(window.innerHeight * 3 / 5);
 	carousel.on('slid.bs.carousel', () => {
