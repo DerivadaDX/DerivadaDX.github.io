@@ -1,20 +1,14 @@
-function redirectTo(project) {
-	let url = '';
+$().ready(() => {
+	const carousel = $('#main_carousel');
 
-	switch (project) {
-		case 'tcp-server':
-		case 'tcp-client':
-		case 'p5-sketches':
-			url = 'https://github.com/DerivadaDX/';
-			break;
-		case 'juegodelnumero':
-			url = 'https://play.google.com/store/apps/details?id=derivadadx.';
-			break;
-	}
+	carousel.height(window.innerHeight * 3 / 5);
+	carousel.on('slide.bs.carousel', (event) => {
+		if (event.to > 0) {
+			const sketch = sketches[event.to - 1];
 
-	if (url !== '') {
-		window.document.location.href = url + project;
-	} else {
-		console.error('Invalid project name.');
-	}
-}
+			if (!sketch.initialized) {
+				new p5(sketch.fn, sketch.parent);
+			}
+		}
+	});
+});

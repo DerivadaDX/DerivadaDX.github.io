@@ -1,61 +1,109 @@
-let allowDrawing = false;
+/* BACKGROUND SKETCH */
+new p5((p) => {
+	p.setup = () => {
+		let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-function setup() {
-	let canvas = createCanvas(windowWidth, windowHeight),
-		navbarButton = select('#hide-navbar-button'),
-		footer = select('#derivadadx-footer'),
-		profileBox = select('#profile-div');
+		canvas.style('z-index', -1);
+		canvas.position(0, 0);
+		p.background(0);
+	};
 
-	select('#hide-profile-button').mouseClicked(() => {
-		background(55, 105, 75);
-		allowDrawing = true;
-		navbarButton.show();
-		profileBox.hide();
-		footer.hide();
-		loop();
-	});
+	p.draw = () => {
 
-	navbarButton.mouseClicked(() => {
-		background(255, 255, 255);
-		allowDrawing = false;
-		navbarButton.hide();
-		profileBox.show();
-		footer.show();
-		noLoop();
-	});
+	};
+});
 
-	canvas.style('z-index', '-1');
-	canvas.position(0, 0);
+/* SLIDES SKETCHES */
+let sketchWidth, sketchHeight;
 
-	rectMode(CENTER);
-	smooth();
-}
+const sketches = [
+	{
+		initialized: false,
+		parent: 'carousel_sketch_0',
+		fn: (p) => {
+			const borderRadius = 5;
 
-function draw() {
-	if (allowDrawing) {
-		translate(width / 2, height / 2);
+			p.setup = () => {
+				const carousel = p.select('#main_carousel');
 
-		if (!mouseIsPressed) {
-			let size = constrain(mouseY / 3, 10, mouseY / 3),
-				r = random(256),
-				g = random(256),
-				b = random(256),
-				alpha = random(256);
+				p.createCanvas(carousel.width, carousel.height);
+				p.background(55, 105, 75);
+				p.rectMode(p.CENTER);
+				p.smooth();
 
-			// center square
-			push();
-			noStroke();
-			fill(color(r, g, b, alpha));
-			rotate(radians(frameCount));
-			rect(0, 0, size, size);
-			pop();
+				sketches[0].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
+			};
 
-			// Other squares
-			if (frameCount % 5 === 0) {
-				fill(color(255 - r, 255 - g, 255 - b, alpha));
-			}
-			rect(-width/2 + mouseX, -height/2 + mouseY, size, size);
-			rect(width/2 - mouseX, height/2 - mouseY, size, size);
+			p.draw = () => {
+				p.translate(p.width / 2, p.height / 2);
+
+				if (!p.mouseIsPressed) {
+					let size = p.constrain(p.mouseY / 3, 10, p.mouseY / 3),
+						r = p.random(256),
+						g = p.random(256),
+						b = p.random(256),
+						alpha = p.random(256);
+
+					// center square
+					p.push();
+					p.noStroke();
+					p.fill(r, g, b, alpha);
+					p.rotate(p.radians(p.frameCount));
+					p.ellipse(0, 0, size, size);
+					p.pop();
+
+					// Other squares
+					if (p.frameCount % 5 === 0) {
+						p.fill(255 - r, 255 - g, 255 - b, alpha);
+					}
+					p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size, borderRadius);
+					p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size, borderRadius);
+				}
+			};
+		},
+	},
+	{
+		initialized: false,
+		parent: 'carousel_sketch_1',
+		fn: (p) => {
+			p.setup = () => {
+				const carousel = p.select('#main_carousel');
+
+				p.createCanvas(sketchWidth, sketchHeight);
+				p.background('green');
+				p.rectMode(p.CENTER);
+
+				sketches[1].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
+			};
+
+			p.draw = () => {
+				p.rect(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
+			};
+		}
+	},
+	{
+		initialized: false,
+		parent: 'carousel_sketch_2',
+		fn: (p) => {
+			p.setup = () => {
+				const carousel = p.select('#main_carousel');
+
+				p.createCanvas(sketchWidth, sketchHeight);
+				p.background('blue');
+
+				sketches[2].initialized = true;
+				sketchHeight = carousel.height;
+				sketchWidth = carousel.width;
+			};
+
+			p.draw = () => {
+				p.fill('yellow');
+				p.arc(p.canvas.width / 2, p.canvas.height / 2, 200, 200, p.QUARTER_PI, -p.QUARTER_PI, p.PIE);
+			};
 		}
 	}
-}
+];
