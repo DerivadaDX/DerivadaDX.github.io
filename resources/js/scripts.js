@@ -1,6 +1,8 @@
 $().ready(() => {
-	let once = true;
-	$('#carouselExampleIndicators').on('slid.bs.carousel', () => {
+	const carousel = $('#carouselExampleIndicators');
+
+	carousel.height(window.innerHeight * 3 / 5);
+	carousel.on('slid.bs.carousel', () => {
 		var index = $('div.active').index();
 		if (index > 0) {
 			let sketch = sketches[index - 1];
