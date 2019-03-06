@@ -1,19 +1,3 @@
-/* BACKGROUND SKETCH */
-new p5((p) => {
-	p.setup = () => {
-		let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-
-		canvas.style('z-index', -1);
-		canvas.position(0, 0);
-		p.background(0);
-	};
-
-	p.draw = () => {
-
-	};
-});
-
-/* SLIDES SKETCHES */
 let sketchWidth, sketchHeight;
 
 const sketches = [
