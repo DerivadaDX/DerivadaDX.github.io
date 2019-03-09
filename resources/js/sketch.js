@@ -1,4 +1,4 @@
-let sketchWidth, sketchHeight;
+let w, h;
 
 const sketches = [
 	{
@@ -9,15 +9,15 @@ const sketches = [
 
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(carousel.width, carousel.height);
+				p.createCanvas(w, h);
 				p.background(55, 105, 75);
 				p.rectMode(p.CENTER);
 				p.smooth();
 
 				sketches[0].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
@@ -42,8 +42,8 @@ const sketches = [
 					if (p.frameCount % 5 === 0) {
 						p.fill(255 - r, 255 - g, 255 - b, alpha);
 					}
-					p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size, borderRadius);
-					p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size, borderRadius);
+					p.rect(-w / 2 + p.mouseX, -h / 2 + p.mouseY, size, size, borderRadius);
+					p.rect(w / 2 - p.mouseX, h / 2 - p.mouseY, size, size, borderRadius);
 				}
 			};
 		},
@@ -54,14 +54,14 @@ const sketches = [
 		fn: (p) => {
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(sketchWidth, sketchHeight);
+				p.createCanvas(w, h);
 				p.background('green');
 				p.rectMode(p.CENTER);
 
 				sketches[1].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
@@ -75,13 +75,13 @@ const sketches = [
 		fn: (p) => {
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(sketchWidth, sketchHeight);
+				p.createCanvas(w, h);
 				p.background('blue');
 
 				sketches[2].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
 			};
 
 			p.draw = () => {
