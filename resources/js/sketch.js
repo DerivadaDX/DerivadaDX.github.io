@@ -1,4 +1,4 @@
-let sketchWidth, sketchHeight;
+let w, h;
 
 const sketches = [
 	{
@@ -16,8 +16,8 @@ const sketches = [
 				p.smooth();
 
 				sketches[0].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
+				h = carousel.height;
+				w = carousel.width;
 			};
 
 			p.draw = () => {
@@ -42,8 +42,8 @@ const sketches = [
 					if (p.frameCount % 5 === 0) {
 						p.fill(255 - r, 255 - g, 255 - b, alpha);
 					}
-					p.rect(-sketchWidth / 2 + p.mouseX, -sketchHeight / 2 + p.mouseY, size, size, borderRadius);
-					p.rect(sketchWidth / 2 - p.mouseX, sketchHeight / 2 - p.mouseY, size, size, borderRadius);
+					p.rect(-w / 2 + p.mouseX, -h / 2 + p.mouseY, size, size, borderRadius);
+					p.rect(w / 2 - p.mouseX, h / 2 - p.mouseY, size, size, borderRadius);
 				}
 			};
 		},
@@ -60,8 +60,8 @@ const sketches = [
 				p.rectMode(p.CENTER);
 
 				sketches[1].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
+				h = carousel.height;
+				w = carousel.width;
 			};
 
 			p.draw = () => {
@@ -80,8 +80,8 @@ const sketches = [
 				p.background('blue');
 
 				sketches[2].initialized = true;
-				sketchHeight = carousel.height;
-				sketchWidth = carousel.width;
+				h = carousel.height;
+				w = carousel.width;
 			};
 
 			p.draw = () => {
