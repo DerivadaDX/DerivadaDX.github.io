@@ -55,7 +55,7 @@ const sketches = [
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 
-				p.createCanvas(sketchWidth, sketchHeight);
+				p.createCanvas(carousel.width, carousel.height);
 				p.background('green');
 				p.rectMode(p.CENTER);
 
@@ -76,7 +76,7 @@ const sketches = [
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 
-				p.createCanvas(sketchWidth, sketchHeight);
+				p.createCanvas(carousel.width, carousel.height);
 				p.background('blue');
 
 				sketches[2].initialized = true;
