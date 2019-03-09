@@ -9,15 +9,15 @@ const sketches = [
 
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(carousel.width, carousel.height);
+				p.createCanvas(w, h);
 				p.background(55, 105, 75);
 				p.rectMode(p.CENTER);
 				p.smooth();
 
 				sketches[0].initialized = true;
-				h = carousel.height;
-				w = carousel.width;
 			};
 
 			p.draw = () => {
@@ -54,14 +54,14 @@ const sketches = [
 		fn: (p) => {
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(carousel.width, carousel.height);
+				p.createCanvas(w, h);
 				p.background('green');
 				p.rectMode(p.CENTER);
 
 				sketches[1].initialized = true;
-				h = carousel.height;
-				w = carousel.width;
 			};
 
 			p.draw = () => {
@@ -75,13 +75,13 @@ const sketches = [
 		fn: (p) => {
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
 
-				p.createCanvas(carousel.width, carousel.height);
+				p.createCanvas(w, h);
 				p.background('blue');
 
 				sketches[2].initialized = true;
-				h = carousel.height;
-				w = carousel.width;
 			};
 
 			p.draw = () => {
