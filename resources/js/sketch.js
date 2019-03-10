@@ -81,6 +81,18 @@ const sketches = [
 				drawLine();
 			};
 
+			function drawLine() {
+				p.line(point.x, point.y, x, y);
+				p.strokeWeight(p.random(1, 3));
+
+				if (x === 0 && y === yOffset) {
+					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+					point = randomCoord();
+				}
+
+				getNextPoint();
+			}
+
 			function randomCoord() {
 				const x = p.width;
 				const y = p.height;
@@ -102,18 +114,6 @@ const sketches = [
 
 				if (prevX === limitX && prevY < limitY) { y += yOffset; }
 				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
-			}
-
-			function drawLine() {
-				p.line(point.x, point.y, x, y);
-				p.strokeWeight(p.random(1, 3));
-
-				if (x === 0 && y === yOffset) {
-					point = randomCoord();
-					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
-				}
-
-				getNextPoint();
 			}
 		}
 	},
