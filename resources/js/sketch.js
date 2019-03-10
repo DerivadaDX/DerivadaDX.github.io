@@ -52,21 +52,60 @@ const sketches = [
 		initialized: false,
 		parent: 'carousel_sketch_1',
 		fn: (p) => {
+			let point = {},
+				x = 0, y = 0,
+				xOffset, yOffset;
+
+			const divisions = 50;
+
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 				w = carousel.width;
 				h = carousel.height;
 
 				p.createCanvas(w, h);
-				p.background('green');
-				p.rectMode(p.CENTER);
+				p.background('black');
 
+				w -= w % divisions;
+				h -= h % divisions;
+				xOffset = w / divisions;
+				yOffset = h / divisions;
+				point = randomCoord();
 				sketches[1].initialized = true;
 			};
 
 			p.draw = () => {
-				p.rect(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
+				if (p.frameCount % 5 === 0) {
+					p.stroke(p.random(255), p.random(255), p.random(255), 200);
+				}
+
+				p.line(point.x, point.y, x, y);
+				p.strokeWeight(p.random(3));
+
+				if (x === 0 && y === yOffset) {
+					p.line(point.x, point.y, 0, 0);
+					point = randomCoord();
+				}
+
+				getNextPoint();
 			};
+
+			function randomCoord() {
+				const x = p.width;
+				const y = p.height;
+
+				return {
+					x: p.constrain(p.random(x), xOffset, x - xOffset),
+					y: p.constrain(p.random(y), yOffset, y - yOffset),
+				}
+			}
+
+			function getNextPoint() {
+				if (x === 0 && y > 0) { y -= yOffset; }
+				if (x > 0 && y === h + yOffset) { x -= xOffset; }
+				if (x === w + xOffset) { y += yOffset; }
+				if (y === 0) { x += xOffset; }
+			}
 		}
 	},
 	{
