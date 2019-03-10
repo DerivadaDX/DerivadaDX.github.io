@@ -65,6 +65,7 @@ const sketches = [
 
 				p.createCanvas(w, h);
 				p.background('black');
+				p.stroke(p.random(255), p.random(255), p.random(255));
 
 				w -= w % divisions;
 				h -= h % divisions;
@@ -75,15 +76,12 @@ const sketches = [
 			};
 
 			p.draw = () => {
-				if (p.frameCount % 5 === 0) {
-					p.stroke(p.random(255), p.random(255), p.random(255), 200);
-				}
-
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(3));
 
 				if (x === 0 && y === yOffset) {
 					point = randomCoord();
+					p.stroke(p.random(255), p.random(255), p.random(255));
 				}
 
 				getNextPoint();
