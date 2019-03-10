@@ -106,11 +106,11 @@ const sketches = [
 
 			function drawLine() {
 				p.line(point.x, point.y, x, y);
-				p.strokeWeight(p.random(3));
+				p.strokeWeight(p.random(1, 3));
 
 				if (x === 0 && y === yOffset) {
 					point = randomCoord();
-					p.stroke(p.random(255), p.random(255), p.random(255));
+					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
 				}
 
 				getNextPoint();
