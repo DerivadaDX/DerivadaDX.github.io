@@ -83,7 +83,6 @@ const sketches = [
 				p.strokeWeight(p.random(3));
 
 				if (x === 0 && y === yOffset) {
-					p.line(point.x, point.y, 0, 0);
 					point = randomCoord();
 				}
 
@@ -101,10 +100,16 @@ const sketches = [
 			}
 
 			function getNextPoint() {
-				if (x === 0 && y > 0) { y -= yOffset; }
-				if (x > 0 && y === h + yOffset) { x -= xOffset; }
-				if (x === w + xOffset) { y += yOffset; }
-				if (y === 0) { x += xOffset; }
+				const prevX = x;
+				const prevY = y;
+				const limitX = w + xOffset;
+				const limitY = h + yOffset;
+
+				if (prevX < limitX && prevY === 0) { x += xOffset; }
+				else if (prevX > 0 && prevY === limitY) { x -= xOffset; }
+
+				if (prevX === limitX && prevY < limitY) { y += yOffset; }
+				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
 			}
 		}
 	},
