@@ -72,6 +72,8 @@ const sketches = [
 				xOffset = w / divisions;
 				yOffset = h / divisions;
 				point = randomCoord();
+
+				// Must be at the end
 				sketches[1].initialized = true;
 			};
 
