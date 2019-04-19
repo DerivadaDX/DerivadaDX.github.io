@@ -52,42 +52,72 @@ const sketches = [
 		initialized: false,
 		parent: 'carousel_sketch_1',
 		fn: (p) => {
+			let point = {},
+				x = 0, y = 0,
+				xOffset, yOffset;
+
+			const divisions = 50;
+
 			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
+				let carousel = $('#main_carousel').parent();
+				w = carousel.width();
+				h = carousel.height();
+				w -= w % divisions;
+				h -= h % divisions;
+
+				carousel.width(w);
+				carousel.height(h);
 
 				p.createCanvas(w, h);
-				p.background('green');
-				p.rectMode(p.CENTER);
+				p.background('black');
+				p.stroke(p.random(255), p.random(255), p.random(255));
 
+				xOffset = w / divisions;
+				yOffset = h / divisions;
+				point = randomCoord();
+
+				// Must be at the end
 				sketches[1].initialized = true;
 			};
 
 			p.draw = () => {
-				p.rect(p.canvas.width / 2, p.canvas.height / 2, 200, 200);
-			};
-		}
-	},
-	{
-		initialized: false,
-		parent: 'carousel_sketch_2',
-		fn: (p) => {
-			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
-
-				p.createCanvas(w, h);
-				p.background('blue');
-
-				sketches[2].initialized = true;
+				drawLine();
 			};
 
-			p.draw = () => {
-				p.fill('yellow');
-				p.arc(p.canvas.width / 2, p.canvas.height / 2, 200, 200, p.QUARTER_PI, -p.QUARTER_PI, p.PIE);
-			};
+			function drawLine() {
+				p.line(point.x, point.y, x, y);
+				p.strokeWeight(p.random(1, 3));
+
+				if (x === 0 && y === yOffset) {
+					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+					//point = randomCoord();
+				}
+
+				getNextPoint();
+			}
+
+			function randomCoord() {
+				const x = p.width;
+				const y = p.height;
+
+				return {
+					x: p.constrain(p.random(x), xOffset, x - xOffset),
+					y: p.constrain(p.random(y), yOffset, y - yOffset),
+				}
+			}
+
+			function getNextPoint() {
+				const prevX = x;
+				const prevY = y;
+				const limitX = w + xOffset;
+				const limitY = h + yOffset;
+
+				if (prevX < limitX && prevY === 0) { x += xOffset; }
+				else if (prevX > 0 && prevY === limitY) { x -= xOffset; }
+
+				if (prevX === limitX && prevY < limitY) { y += yOffset; }
+				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
+			}
 		}
 	}
 ];
