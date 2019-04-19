@@ -59,16 +59,19 @@ const sketches = [
 			const divisions = 50;
 
 			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
+				let carousel = $('#main_carousel').parent();
+				w = carousel.width();
+				h = carousel.height();
+				w -= w % divisions;
+				h -= h % divisions;
+
+				carousel.width(w);
+				carousel.height(h);
 
 				p.createCanvas(w, h);
 				p.background('black');
 				p.stroke(p.random(255), p.random(255), p.random(255));
 
-				w -= w % divisions;
-				h -= h % divisions;
 				xOffset = w / divisions;
 				yOffset = h / divisions;
 				point = randomCoord();
