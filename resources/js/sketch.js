@@ -117,25 +117,25 @@ const sketches = [
 			}
 		}
 	},
-	{
-		initialized: false,
-		parent: 'carousel_sketch_2',
-		fn: (p) => {
-			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
+	// {
+	// 	initialized: false,
+	// 	parent: 'carousel_sketch_2',
+	// 	fn: (p) => {
+	// 		p.setup = () => {
+	// 			const carousel = p.select('#main_carousel');
+	// 			w = carousel.width;
+	// 			h = carousel.height;
 
-				p.createCanvas(w, h);
-				p.background('blue');
+	// 			p.createCanvas(w, h);
+	// 			p.background('blue');
 
-				sketches[2].initialized = true;
-			};
+	// 			sketches[2].initialized = true;
+	// 		};
 
-			p.draw = () => {
-				p.fill('yellow');
-				p.arc(p.canvas.width / 2, p.canvas.height / 2, 200, 200, p.QUARTER_PI, -p.QUARTER_PI, p.PIE);
-			};
-		}
-	}
+	// 		p.draw = () => {
+	// 			p.fill('yellow');
+	// 			p.arc(p.canvas.width / 2, p.canvas.height / 2, 200, 200, p.QUARTER_PI, -p.QUARTER_PI, p.PIE);
+	// 		};
+	// 	}
+	// }
 ];
