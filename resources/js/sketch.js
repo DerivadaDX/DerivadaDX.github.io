@@ -87,7 +87,7 @@ const sketches = [
 
 				if (x === 0 && y === yOffset) {
 					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
-					point = randomCoord();
+					//point = randomCoord();
 				}
 
 				getNextPoint();
