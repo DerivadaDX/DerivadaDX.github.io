@@ -6,21 +6,26 @@ const sketches = [
 		parent: 'carousel_sketch_0',
 		fn: (p) => {
 			const borderRadius = 5;
+			let canvas, prevW, prevH;
 
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 				w = carousel.width;
 				h = carousel.height;
 
-				p.createCanvas(w, h);
-				p.background(55, 105, 75);
-				p.rectMode(p.CENTER);
-				p.smooth();
+				canvas = p.createCanvas(w, h);
+				setConfig();
+				updateWH();
 
 				sketches[0].initialized = true;
 			};
 
 			p.draw = () => {
+				if (prevW != w || prevH != h) {
+					canvas.size(w, h);
+					setConfig();
+				}
+				updateWH();
 				p.translate(p.width / 2, p.height / 2);
 
 				if (!p.mouseIsPressed) {
@@ -46,6 +51,17 @@ const sketches = [
 					p.rect(w / 2 - p.mouseX, h / 2 - p.mouseY, size, size, borderRadius);
 				}
 			};
+
+			function updateWH() {
+				prevW = w;
+				prevH = h;
+			}
+
+			function setConfig() {
+				p.background(55, 105, 75);
+				p.rectMode(p.CENTER);
+				p.smooth();
+			}
 		},
 	},
 	{
