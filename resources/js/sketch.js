@@ -135,5 +135,24 @@ const sketches = [
 				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
 			}
 		}
+	},
+	{
+		initialized: false,
+		parent: 'carousel_sketch_2',
+		fn: (p) => {
+			p.setup = () => {
+				const carousel = p.select('#main_carousel');
+				w = carousel.width;
+				h = carousel.height;
+
+				canvas = p.createCanvas(w, h);
+
+				sketches[2].initialized = true;
+			};
+
+			p.draw = () => {
+
+			};
+		}
 	}
 ];
