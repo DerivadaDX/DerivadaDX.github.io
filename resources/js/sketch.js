@@ -140,18 +140,50 @@ const sketches = [
 		initialized: false,
 		parent: 'carousel_sketch_2',
 		fn: (p) => {
+			let logo, img;
+			const space = 3.5;
+
+			p.preload = () => {
+				logo = p.loadImage('/resources/images/logo.png');
+			};
+
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 				w = carousel.width;
 				h = carousel.height;
 
 				canvas = p.createCanvas(w, h);
+				p.background(128);
+
+				p.imageMode(p.CENTER);
+				logo.loadPixels();
+
+				img = p.createImage(logo.width * space, logo.height * space);
+
+				p.noStroke();
+				for (let x = 0; x < img.width; x++) {
+					for (let y = 0; y < img.height; y++) {
+						if (x % space === 0 && y % space === 0) {
+							//img.set(x, y, logo.get(x / space, y / space));
+
+							p.fill(logo.get(x / space, y / space));
+							p.ellipse(w / 2 - img.width / 2 + x, h / 2 - img.height / 2 + y, 25, 2.5);
+							p.ellipse(w / 2 - img.width / 2 + x, h / 2 - img.height / 2 + y, 2.5, 25);
+						} else {
+							//img.set(x, y, [0, 128, 0, 64]);
+						}
+					}
+				}
+
+				//img.updatePixels();
 
 				sketches[2].initialized = true;
 			};
 
 			p.draw = () => {
-
+				p.image(logo, logo.width / 2 + 5, logo.height / 2 + 5);
+				// p.image(img, w / 2, h / 2);
+				p.noLoop();
 			};
 		}
 	}
