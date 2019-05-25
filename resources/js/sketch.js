@@ -191,6 +191,8 @@ const sketches = [
 		initialized: false,
 		parent: 'carousel_sketch_2',
 		fn: (p) => {
+			let x1, x2;
+
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
 				w = carousel.width;
@@ -198,22 +200,66 @@ const sketches = [
 
 				canvas = p.createCanvas(w, h);
 
-				p.imageMode(p.CENTER);
+				x1 = w * .05;
+				x2 = w - w * .01;
 
 				sketches[2].initialized = true;
 			};
 
 			p.draw = () => {
-				p.stroke('white');
+				// bg
 				p.background('black');
-				p.line(w * .1, 0, w - w * .1, h);
 
+				// diagonal
+				p.stroke('white');
+				p.line(x1, 0, x2, h);
+
+				// shapes
+				const c0 = blurredCircle(x1, 0, x2, h);
+				const c1 = blurredCircle(x1, 0, c0.x, c0.y, false);
+				const c2 = blurredCircle(c0.x, c0.y, x2, h);
+
+				blurredCircle(x1, 0, c1.x, c1.y);
+				blurredCircle(c2.x, c2.y, x2, h);
+
+				// bottom
 				p.push();
 				p.noFill();
 				p.strokeWeight(3);
 				p.rect(0, 0, w, h);
 				p.pop();
 			};
+
+			function blurredCircle(x1, y1, x2, y2, draw = true) {
+				const c = rectCenterPoint(x1, y1, x2, y2);
+
+				if (draw) {
+					alphaEllipse(c.x, c.y, pitagoras(x1, y1, x2, y2) / 2);
+				}
+
+				return c;
+			}
+
+			function rectCenterPoint(x1, y1, x2, y2) {
+				return {
+					x: (x1 + x2) / 2,
+					y: (y1 + y2) / 2
+				}
+			}
+
+			function alphaEllipse(x, y, r) {
+				p.push();
+				p.noFill();
+				for (let i = 0; i < r; i++) {
+					p.stroke(255, 255, 255, 255 - (i * (255 / r)));
+					p.ellipse(x, y, i);
+				}
+				p.pop();
+			}
+
+			function pitagoras(x1, y1, x2, y2) {
+				return p.sqrt(p.sq(p.abs(x1 - x2)) + p.sq(p.abs(y1 - y2)));
+			}
 		}
 	}
 ];
