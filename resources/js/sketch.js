@@ -216,7 +216,7 @@ const sketches = [
 
 				// shapes
 				const c0 = blurredCircle(x1, 0, x2, h);
-				const c1 = blurredCircle(x1, 0, c0.x, c0.y, false);
+				const c1 = blurredCircle(x1, 0, c0.x, c0.y);
 				const c2 = blurredCircle(c0.x, c0.y, x2, h);
 
 				blurredCircle(x1, 0, c1.x, c1.y);
@@ -230,12 +230,10 @@ const sketches = [
 				p.pop();
 			};
 
-			function blurredCircle(x1, y1, x2, y2, draw = true) {
+			function blurredCircle(x1, y1, x2, y2) {
 				const c = rectCenterPoint(x1, y1, x2, y2);
 
-				if (draw) {
-					alphaEllipse(c.x, c.y, pitagoras(x1, y1, x2, y2) / 2);
-				}
+				alphaEllipse(c.x, c.y, pitagoras(x1, y1, x2, y2) / 2);
 
 				return c;
 			}
