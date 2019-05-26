@@ -191,7 +191,7 @@ const sketches = [
 		initialized: false,
 		parent: 'carousel_sketch_2',
 		fn: (p) => {
-			let x1, x2;
+			let x1, x2, dx, alpha, r, c;
 
 			p.setup = () => {
 				const carousel = p.select('#main_carousel');
@@ -202,6 +202,9 @@ const sketches = [
 
 				x1 = w * .05;
 				x2 = w - w * .01;
+				let hip = pitagoras(x1, 0, x2, h);
+				dx = hip / p.abs(x1 - x2);
+				dy = hip / h;
 
 				sketches[2].initialized = true;
 			};
@@ -215,12 +218,29 @@ const sketches = [
 				p.line(x1, 0, x2, h);
 
 				// shapes
-				const c0 = blurredCircle(x1, 0, x2, h);
-				const c1 = blurredCircle(x1, 0, c0.x, c0.y);
-				const c2 = blurredCircle(c0.x, c0.y, x2, h);
+				const c0 = rectCenterPoint(x1, 0, x2, h);
+				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 8);
 
-				blurredCircle(x1, 0, c1.x, c1.y);
-				blurredCircle(c2.x, c2.y, x2, h);
+				r = 100;
+				alpha = 255 * .25;
+				c = color(65, 155, 146, alpha);
+				const c1 = rectCenterPoint(c0.x, c0.y, x2, h);
+				ellipse(c1.x, c1.y, r, c);
+
+				r -= r * .5;
+				c = getColor(c);
+				const c2 = rectCenterPoint(c1.x, c1.y, getX(c1.x, 12.5), getY(c1.y, 12.5));
+				ellipse(c2.x, c2.y, r, c);
+
+				r -= r * .5;
+				c = getColor(c);
+				const c3 = rectCenterPoint(c2.x, c2.y, getX(c2.x, 12.5), getY(c2.y, 12.5));
+				ellipse(c3.x, c3.y, r, c);
+
+				r -= r * .5;
+				c = getColor(c);
+				const c4 = rectCenterPoint(c3.x, c3.y, getX(c3.x, 12.5), getY(c3.y, 12.5));
+				ellipse(c4.x, c4.y, r, c);
 
 				// bottom
 				p.push();
@@ -228,6 +248,7 @@ const sketches = [
 				p.strokeWeight(3);
 				p.rect(0, 0, w, h);
 				p.pop();
+				p.noLoop();
 			};
 
 			function blurredCircle(x1, y1, x2, y2) {
@@ -245,18 +266,53 @@ const sketches = [
 				}
 			}
 
-			function alphaEllipse(x, y, r) {
+			function alphaEllipse(x, y, r, c) {
 				p.push();
 				p.noFill();
 				for (let i = 0; i < r; i++) {
-					p.stroke(255, 255, 255, 255 - (i * (255 / r)));
+					if (c) {
+						p.stroke(c.r, c.g, c.b, 255 - (i * (255 / r)));
+					} else {
+						p.stroke(255, 255, 255, 255 - (i * (255 / r)));
+					}
 					p.ellipse(x, y, i);
 				}
 				p.pop();
 			}
 
+			function ellipse(x, y, r, c) {
+				p.push();
+				p.noStroke();
+				p.fill(c.r, c.g, c.b, c.a);
+				p.ellipse(x, y, r);
+				p.pop();
+			}
+
 			function pitagoras(x1, y1, x2, y2) {
 				return p.sqrt(p.sq(p.abs(x1 - x2)) + p.sq(p.abs(y1 - y2)));
+			}
+
+			function color(r, g, b, a) {
+				return { r: r, g: g, b: b, a: a };
+			}
+
+			function getX(x, r) {
+				return (r / dx) + x;
+			}
+
+			function getY(y, r) {
+				return (r / dy) + y;
+			}
+
+			function getColor(c) {
+				const n = (ca, v) => { return ca + (255 - v) / 3; };
+
+				return {
+					r: n(c.r, 65),
+					g: n(c.g, 155),
+					b: n(c.b, 146),
+					a: c.a + 255 * .25
+				};
 			}
 		}
 	}
