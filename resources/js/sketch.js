@@ -225,22 +225,22 @@ const sketches = [
 				alpha = 255 * .25;
 				c = color(65, 155, 146, alpha);
 				const c1 = rectCenterPoint(c0.x, c0.y, x2, h);
-				ellipse(c1.x, c1.y, r, c);
+				alphaEllipse(c1.x, c1.y, r, c);
 
 				r -= r * .5;
 				c = getColor(c);
 				const c2 = rectCenterPoint(c1.x, c1.y, getX(c1.x, 12.5), getY(c1.y, 12.5));
-				ellipse(c2.x, c2.y, r, c);
+				alphaEllipse(c2.x, c2.y, r, c);
 
 				r -= r * .5;
 				c = getColor(c);
 				const c3 = rectCenterPoint(c2.x, c2.y, getX(c2.x, 12.5), getY(c2.y, 12.5));
-				ellipse(c3.x, c3.y, r, c);
+				alphaEllipse(c3.x, c3.y, r, c);
 
 				r -= r * .5;
 				c = getColor(c);
 				const c4 = rectCenterPoint(c3.x, c3.y, getX(c3.x, 12.5), getY(c3.y, 12.5));
-				ellipse(c4.x, c4.y, r, c);
+				alphaEllipse(c4.x, c4.y, r, c);
 
 				// bottom
 				p.push();
@@ -271,7 +271,7 @@ const sketches = [
 				p.noFill();
 				for (let i = 0; i < r; i++) {
 					if (c) {
-						p.stroke(c.r, c.g, c.b, 255 - (i * (255 / r)));
+						p.stroke(c.r, c.g, c.b, c.a - (i * (c.a / r)));
 					} else {
 						p.stroke(255, 255, 255, 255 - (i * (255 / r)));
 					}
