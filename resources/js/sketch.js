@@ -218,29 +218,55 @@ const sketches = [
 				p.line(x1, 0, x2, h);
 
 				// shapes
-				const c0 = rectCenterPoint(x1, 0, x2, h);
-				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 8);
-
 				r = 100;
 				alpha = 255 * .25;
+				b = color(255, 255, 255, alpha)
+				const c0 = rectCenterPoint(x1, 0, x2, h);
+				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 8, b);
+
 				c = color(65, 155, 146, alpha);
 				const c1 = rectCenterPoint(c0.x, c0.y, x2, h);
 				alphaEllipse(c1.x, c1.y, r, c);
 
+				d = color(255, 140, 0, alpha);
+				const d1 = rectCenterPoint(x1, 0, c0.x, c0.y);
+				alphaEllipse(d1.x, d1.y, r, d);
+
 				r -= r * .5;
+				b = getColor(b);
+				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 16, b);
+
 				c = getColor(c);
 				const c2 = rectCenterPoint(c1.x, c1.y, getX(c1.x, 12.5), getY(c1.y, 12.5));
 				alphaEllipse(c2.x, c2.y, r, c);
 
+				d = getColor(d);
+				const d2 = rectCenterPoint(p.abs(2 * d1.x - getX(d1.x, 12.5)), p.abs(2 * d1.y - getY(d1.y, 12.5)), d1.x, d1.y);
+				alphaEllipse(d2.x, d2.y, r, d);
+
 				r -= r * .5;
+				b = getColor(b);
+				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 32, b);
+
 				c = getColor(c);
 				const c3 = rectCenterPoint(c2.x, c2.y, getX(c2.x, 12.5), getY(c2.y, 12.5));
 				alphaEllipse(c3.x, c3.y, r, c);
 
+				d = getColor(d);
+				const d3 = rectCenterPoint(p.abs(2 * d2.x - getX(d2.x, 12.5)), p.abs(2 * d2.y - getY(d2.y, 12.5)), d2.x, d2.y);
+				alphaEllipse(d3.x, d3.y, r, d);
+
 				r -= r * .5;
+				b = getColor(b);
+				alphaEllipse(c0.x, c0.y, pitagoras(x1, 0, x2, h) / 64, b);
+
 				c = getColor(c);
 				const c4 = rectCenterPoint(c3.x, c3.y, getX(c3.x, 12.5), getY(c3.y, 12.5));
 				alphaEllipse(c4.x, c4.y, r, c);
+
+				d = getColor(d);
+				const d4 = rectCenterPoint(p.abs(2 * d3.x - getX(d3.x, 12.5)), p.abs(2 * d3.y - getY(d3.y, 12.5)), d3.x, d3.y);
+				alphaEllipse(d4.x, d4.y, r, d);
 
 				// bottom
 				p.push();
