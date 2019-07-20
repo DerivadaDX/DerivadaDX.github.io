@@ -1,0 +1,12 @@
+.bg-black {
+	background-color: black;
+}
+
+div.dropdown-divider {
+	border-color: #9a9a9a;
+}
+
+.thumbnail {
+	width: 32px;
+	height: 32px;
+}
