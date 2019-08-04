@@ -9,9 +9,9 @@ const sketches = [
 			let canvas, prevW, prevH;
 
 			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
+				const carousel = $('#main_carousel').parent();
+				h = carousel.height();
+				w = carousel.width();
 
 				canvas = p.createCanvas(w, h);
 				setConfig();
@@ -70,19 +70,15 @@ const sketches = [
 		fn: (p) => {
 			let point = {},
 				x = 0, y = 0,
+				xd = 1, yd = 0,
 				xOffset, yOffset;
 
 			const divisions = 50;
 
 			p.setup = () => {
-				let carousel = $('#main_carousel').parent();
-				w = carousel.width();
+				const carousel = $('#main_carousel').parent();
 				h = carousel.height();
-				w -= w % divisions;
-				h -= h % divisions;
-
-				carousel.width(w);
-				carousel.height(h);
+				w = carousel.width();
 
 				p.createCanvas(w, h);
 				p.background('black');
@@ -104,35 +100,37 @@ const sketches = [
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
-				if (x === 0 && y === yOffset) {
+				if (p.frameCount % (4 * divisions) === 0) {
 					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
-					//point = randomCoord();
 				}
 
 				getNextPoint();
 			}
 
 			function randomCoord() {
-				const x = p.width;
-				const y = p.height;
-
 				return {
-					x: p.constrain(p.random(x), xOffset, x - xOffset),
-					y: p.constrain(p.random(y), yOffset, y - yOffset),
+					x: p.constrain(p.random(w), xOffset, w - xOffset),
+					y: p.constrain(p.random(h), yOffset, h - yOffset),
 				}
 			}
 
 			function getNextPoint() {
-				const prevX = x;
-				const prevY = y;
-				const limitX = w + xOffset;
-				const limitY = h + yOffset;
+				const f = p.frameCount;
 
-				if (prevX < limitX && prevY === 0) { x += xOffset; }
-				else if (prevX > 0 && prevY === limitY) { x -= xOffset; }
+				if (f % divisions === 1) {
+					if (xd === 1 && yd === 0 && f !== 1) {
+						xd = 0; yd = 1;
+					} else if (xd === 0 && yd === 1) {
+						xd = -1; yd = 0;
+					} else if (xd === -1 && yd === 0) {
+						xd = 0; yd = -1;
+					} else if (xd === 0 && yd === -1) {
+						xd = 1; yd = 0;
+					}
+				}
 
-				if (prevX === limitX && prevY < limitY) { y += yOffset; }
-				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
+				x += xd * xOffset;
+				y += yd * yOffset;
 			}
 		}
 	}
