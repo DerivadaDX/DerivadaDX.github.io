@@ -13,9 +13,15 @@ $().ready(() => {
 
 			if (!sketch.initialized) {
 				new p5(sketch.fn, sketch.parent);
+			} else {
+				sketch.p5.loop();
 			}
 
 			carousel.height(height);
+		}
+
+		if (event.from > 0) {
+			sketches[event.from - 1].p5.noLoop();
 		}
 	});
 });

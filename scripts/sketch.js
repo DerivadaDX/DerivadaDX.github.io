@@ -2,9 +2,12 @@ let w, h;
 
 const sketches = [
 	{
-		initialized: false,
 		parent: 'carousel_sketch_0',
+		initialized: false,
+		p5: null,
 		fn: (p) => {
+			sketches[0].p5 = p;
+
 			const borderRadius = 5;
 
 			p.setup = () => {
@@ -50,9 +53,12 @@ const sketches = [
 		},
 	},
 	{
-		initialized: false,
 		parent: 'carousel_sketch_1',
+		initialized: false,
+		p5: null,
 		fn: (p) => {
+			sketches[1].p5 = p;
+
 			let point = {},
 				x = 0, y = 0,
 				xd = 1, yd = 0,
