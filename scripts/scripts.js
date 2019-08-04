@@ -14,3 +14,9 @@ $().ready(() => {
 		}
 	});
 });
+
+function showHiddenChildrens(selector) {
+	$(selector).children().toArray().forEach(e => {
+		$(e).removeClass('hidden');
+	});
+}
