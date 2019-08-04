@@ -82,7 +82,7 @@ const sketches = [
 
 				p.createCanvas(w, h);
 				p.background('black');
-				p.stroke(p.random(255), p.random(255), p.random(255));
+				changeStrokeColor();
 
 				xOffset = w / divisions;
 				yOffset = h / divisions;
@@ -96,12 +96,16 @@ const sketches = [
 				drawLine();
 			};
 
+			function changeStrokeColor() {
+				p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+			}
+
 			function drawLine() {
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
 				if (p.frameCount % (4 * divisions) === 0) {
-					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+					changeStrokeColor();
 				}
 
 				getNextPoint();
