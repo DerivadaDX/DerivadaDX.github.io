@@ -2,30 +2,29 @@ let w, h;
 
 const sketches = [
 	{
-		initialized: false,
 		parent: 'carousel_sketch_0',
+		initialized: false,
+		p5: null,
 		fn: (p) => {
+			sketches[0].p5 = p;
+
 			const borderRadius = 5;
-			let canvas, prevW, prevH;
 
 			p.setup = () => {
 				const carousel = $('#main_carousel').parent();
 				h = carousel.height();
 				w = carousel.width();
 
-				canvas = p.createCanvas(w, h);
-				setConfig();
-				updateWH();
+				p.createCanvas(w, h);
+				p.background(55, 105, 75);
+				p.rectMode(p.CENTER);
+				p.smooth();
 
+				// Must be at the end
 				sketches[0].initialized = true;
 			};
 
 			p.draw = () => {
-				if (prevW != w || prevH != h) {
-					canvas.size(w, h);
-					setConfig();
-				}
-				updateWH();
 				p.translate(p.width / 2, p.height / 2);
 
 				if (!p.mouseIsPressed) {
@@ -51,23 +50,15 @@ const sketches = [
 					p.rect(w / 2 - p.mouseX, h / 2 - p.mouseY, size, size, borderRadius);
 				}
 			};
-
-			function updateWH() {
-				prevW = w;
-				prevH = h;
-			}
-
-			function setConfig() {
-				p.background(55, 105, 75);
-				p.rectMode(p.CENTER);
-				p.smooth();
-			}
 		},
 	},
 	{
-		initialized: false,
 		parent: 'carousel_sketch_1',
+		initialized: false,
+		p5: null,
 		fn: (p) => {
+			sketches[1].p5 = p;
+
 			let point = {},
 				x = 0, y = 0,
 				xd = 1, yd = 0,
@@ -82,7 +73,7 @@ const sketches = [
 
 				p.createCanvas(w, h);
 				p.background('black');
-				p.stroke(p.random(255), p.random(255), p.random(255));
+				changeStrokeColor();
 
 				xOffset = w / divisions;
 				yOffset = h / divisions;
@@ -96,12 +87,16 @@ const sketches = [
 				drawLine();
 			};
 
+			function changeStrokeColor() {
+				p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+			}
+
 			function drawLine() {
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
 				if (p.frameCount % (4 * divisions) === 0) {
-					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
+					changeStrokeColor();
 				}
 
 				getNextPoint();
