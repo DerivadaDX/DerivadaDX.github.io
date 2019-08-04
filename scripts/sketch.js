@@ -101,7 +101,7 @@ const sketches = [
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
-				if (p.frameCount % 200 === 0) {
+				if (p.frameCount % (4 * divisions) === 0) {
 					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
 				}
 
@@ -121,7 +121,7 @@ const sketches = [
 			function getNextPoint() {
 				const f = p.frameCount;
 
-				if (f % 50 === 0) {
+				if (f % divisions === 0) {
 					if (xDir === 1 && yDir === 0) {
 						xDir = 0; yDir = 1;
 					} else if (xDir === 0 && yDir === 1) {
