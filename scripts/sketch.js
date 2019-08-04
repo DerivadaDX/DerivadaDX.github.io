@@ -9,9 +9,9 @@ const sketches = [
 			let canvas, prevW, prevH;
 
 			p.setup = () => {
-				const carousel = p.select('#main_carousel');
-				w = carousel.width;
-				h = carousel.height;
+				const carousel = $('#main_carousel').parent();
+				h = carousel.height();
+				w = carousel.width();
 
 				canvas = p.createCanvas(w, h);
 				setConfig();
@@ -75,9 +75,9 @@ const sketches = [
 			const divisions = 50;
 
 			p.setup = () => {
-				let carousel = $('#main_carousel').parent();
-				w = carousel.width();
+				const carousel = $('#main_carousel').parent();
 				h = carousel.height();
+				w = carousel.width();
 				w -= w % divisions;
 				h -= h % divisions;
 
