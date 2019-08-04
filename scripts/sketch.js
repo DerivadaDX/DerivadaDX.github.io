@@ -94,10 +94,10 @@ const sketches = [
 			};
 
 			p.draw = () => {
-				drawLine(p);
+				drawLine();
 			};
 
-			function drawLine(p) {
+			function drawLine() {
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
@@ -105,7 +105,7 @@ const sketches = [
 					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
 				}
 
-				getNextPoint(p);
+				getNextPoint();
 			}
 
 			function randomCoord() {
@@ -118,7 +118,7 @@ const sketches = [
 				}
 			}
 
-			function getNextPoint(p) {
+			function getNextPoint() {
 				const f = p.frameCount;
 
 				if (f % 50 === 0) {
