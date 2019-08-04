@@ -70,9 +70,8 @@ const sketches = [
 		fn: (p) => {
 			let point = {},
 				x = 0, y = 0,
+				xd = 1, yd = 0,
 				xOffset, yOffset;
-
-			let xDir = 1, yDir = 0;
 
 			const divisions = 50;
 
@@ -122,19 +121,19 @@ const sketches = [
 				const f = p.frameCount;
 
 				if (f % divisions === 0) {
-					if (xDir === 1 && yDir === 0) {
-						xDir = 0; yDir = 1;
-					} else if (xDir === 0 && yDir === 1) {
-						xDir = -1; yDir = 0;
-					} else if (xDir === -1 && yDir === 0) {
-						xDir = 0; yDir = -1;
-					} else if (xDir === 0 && yDir === -1) {
-						xDir = 1; yDir = 0;
+					if (xd === 1 && yd === 0) {
+						xd = 0; yd = 1;
+					} else if (xd === 0 && yd === 1) {
+						xd = -1; yd = 0;
+					} else if (xd === -1 && yd === 0) {
+						xd = 0; yd = -1;
+					} else if (xd === 0 && yd === -1) {
+						xd = 1; yd = 0;
 					}
 				}
 
-				x += xDir * xOffset;
-				y += yDir * yOffset;
+				x += xd * xOffset;
+				y += yd * yOffset;
 			}
 		}
 	}
