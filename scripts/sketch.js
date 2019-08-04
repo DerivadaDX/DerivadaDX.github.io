@@ -72,17 +72,14 @@ const sketches = [
 				x = 0, y = 0,
 				xOffset, yOffset;
 
+			let xDir = 1, yDir = 0;
+
 			const divisions = 50;
 
 			p.setup = () => {
 				const carousel = $('#main_carousel').parent();
 				h = carousel.height();
 				w = carousel.width();
-				w -= w % divisions;
-				h -= h % divisions;
-
-				carousel.width(w);
-				carousel.height(h);
 
 				p.createCanvas(w, h);
 				p.background('black');
@@ -97,19 +94,18 @@ const sketches = [
 			};
 
 			p.draw = () => {
-				drawLine();
+				drawLine(p);
 			};
 
-			function drawLine() {
+			function drawLine(p) {
 				p.line(point.x, point.y, x, y);
 				p.strokeWeight(p.random(1, 3));
 
-				if (x === 0 && y === yOffset) {
+				if (p.frameCount % 200 === 0) {
 					p.stroke(p.random(255), p.random(255), p.random(255), p.random(128, 256));
-					//point = randomCoord();
 				}
 
-				getNextPoint();
+				getNextPoint(p);
 			}
 
 			function randomCoord() {
@@ -122,17 +118,23 @@ const sketches = [
 				}
 			}
 
-			function getNextPoint() {
-				const prevX = x;
-				const prevY = y;
-				const limitX = w + xOffset;
-				const limitY = h + yOffset;
+			function getNextPoint(p) {
+				const f = p.frameCount;
 
-				if (prevX < limitX && prevY === 0) { x += xOffset; }
-				else if (prevX > 0 && prevY === limitY) { x -= xOffset; }
+				if (f % 50 === 0) {
+					if (xDir === 1 && yDir === 0) {
+						xDir = 0; yDir = 1;
+					} else if (xDir === 0 && yDir === 1) {
+						xDir = -1; yDir = 0;
+					} else if (xDir === -1 && yDir === 0) {
+						xDir = 0; yDir = -1;
+					} else if (xDir === 0 && yDir === -1) {
+						xDir = 1; yDir = 0;
+					}
+				}
 
-				if (prevX === limitX && prevY < limitY) { y += yOffset; }
-				else if (prevX === 0 && prevY > 0) { y -= yOffset; }
+				x += xDir * xOffset;
+				y += yDir * yOffset;
 			}
 		}
 	}
