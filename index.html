@@ -24,14 +24,14 @@
 			<div class="col-12">
 				<div id="main_carousel" class="carousel slide" data-ride="carousel" data-interval="false">
 					<!-- indicators -->
-					<ol class="carousel-indicators">
+					<ol id="indicators" class="carousel-indicators">
 						<li data-target="#main_carousel" data-slide-to="0" class="active"></li>
 						<li data-target="#main_carousel" data-slide-to="1"></li>
-						<!-- <li data-target="#main_carousel" data-slide-to="2"></li> -->
+						<li data-target="#main_carousel" data-slide-to="2" class="hidden"></li>
 					</ol>
 
 					<!-- slides -->
-					<div class="carousel-inner text-white">
+					<div id="slides" class="carousel-inner text-white">
 						<div class="carousel-item container active my-5">
 							<!-- title -->
 							<div class="row border-bottom border-secondary">
@@ -172,9 +172,9 @@
 
 							<div class="d-none d-lg-block" id="carousel_sketch_0"></div>
 						</div>
-						<!-- <div class="carousel-item">
+						<div class="carousel-item hidden">
 							<div id="carousel_sketch_1"></div>
-						</div> -->
+						</div>
 					</div>
 				</div>
 			</div>

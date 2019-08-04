@@ -1,4 +1,9 @@
 $().ready(() => {
+	if ($('#carousel_sketch_0').length) {
+		showHiddenChildrens('#indicators');
+		showHiddenChildrens('#slides');
+	}
+
 	const carousel = $('#main_carousel');
 	const height = carousel.height();
 
