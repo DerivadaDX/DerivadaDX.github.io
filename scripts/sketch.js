@@ -117,8 +117,8 @@ const sketches = [
 			function getNextPoint() {
 				const f = p.frameCount;
 
-				if (f % divisions === 0) {
-					if (xd === 1 && yd === 0) {
+				if (f % divisions === 1) {
+					if (xd === 1 && yd === 0 && f !== 1) {
 						xd = 0; yd = 1;
 					} else if (xd === 0 && yd === 1) {
 						xd = -1; yd = 0;
