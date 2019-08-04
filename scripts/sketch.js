@@ -108,12 +108,9 @@ const sketches = [
 			}
 
 			function randomCoord() {
-				const x = p.width;
-				const y = p.height;
-
 				return {
-					x: p.constrain(p.random(x), xOffset, x - xOffset),
-					y: p.constrain(p.random(y), yOffset, y - yOffset),
+					x: p.constrain(p.random(w), xOffset, w - xOffset),
+					y: p.constrain(p.random(h), yOffset, h - yOffset),
 				}
 			}
 
