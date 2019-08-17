@@ -2,6 +2,7 @@ $().ready(() => {
 	const sk = $('#carousel_sketch_0').css('display') !== 'none' ? 0 : 1;
 	const carousel = $('#main_carousel');
 	const height = carousel.height();
+	const sketches = getSketches();
 
 	if (sketches.length > 1) {
 		let indicators = $('#indicators'),
