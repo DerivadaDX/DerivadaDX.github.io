@@ -1,5 +1,3 @@
-let w, h;
-
 const sketches = [
 	{
 		parent: 'carousel_sketch_0',
@@ -8,6 +6,7 @@ const sketches = [
 		fn: (p) => {
 			sketches[0].p5 = p;
 
+			let w, h;
 			const borderRadius = 5;
 
 			p.setup = () => {
@@ -59,7 +58,8 @@ const sketches = [
 		fn: (p) => {
 			sketches[1].p5 = p;
 
-			let point = {},
+			let w, h,
+				point = {},
 				x = 0, y = 0,
 				xd = 1, yd = 0,
 				xOffset, yOffset;
