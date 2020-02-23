@@ -1,4 +1,14 @@
 $().ready(() => {
+	/* START: Language Service region */
+	const svc = new LanguageService();
+	
+	document.languageService = svc;
+	svc.initialize(); // loads the file that corresponds with current language
+
+	// adds .active to active language button
+	$(`#${svc.lng}-button`).addClass('active');
+	/* END: Language Service region */
+
 	const sk = $('#carousel_sketch_0').css('display') !== 'none' ? 0 : 1;
 	const carousel = $('#main_carousel');
 	const height = carousel.height();
@@ -38,3 +48,9 @@ $().ready(() => {
 		}
 	});
 });
+
+function changeLanguage(active) {
+	document.languageService.setLanguage(active);
+	$(`.lang-button`).removeClass('active');
+	$(`#${document.languageService.lng}-button`).addClass('active');
+}
