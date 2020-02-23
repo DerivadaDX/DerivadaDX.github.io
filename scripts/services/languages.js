@@ -16,8 +16,6 @@ class LanguageService {
 
 		document.querySelector('head').appendChild(scriptTag);
 
-		scriptTag.onload = () => {
-			console.log(`${this.lng}.js file loaded`);
-		};
+		scriptTag.onload = () => document.lang.forEach(e => $(`.${e.id}`).html(e.text));
 	}
 }
