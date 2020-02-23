@@ -1,4 +1,7 @@
 $().ready(() => {
+	document.languageService = new LanguageService();
+	document.languageService.initialize();
+
 	const sk = $('#carousel_sketch_0').css('display') !== 'none' ? 0 : 1;
 	const carousel = $('#main_carousel');
 	const height = carousel.height();
