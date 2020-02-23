@@ -19,7 +19,7 @@ this.lang = [
 	},
 	{
 		id: 'main_slide-conclusion',
-		text: `Dale un vistazo a este juego de Android que programé hace tiempo:`
+		text: `Dale un vistazo a este juego de Android que programé hace un tiempo:`
 	},
 	{
 		id: 'secondary_slide-description',
@@ -27,6 +27,6 @@ this.lang = [
 	},
 	{
 		id: 'secondary_slide-footer',
-		text: `<strong>No te olvides de revisar más trabajos en p5.js en la versión de escritorio!</strong>`
+		text: `<strong>No olvides ver más trabajos en p5.js, en la versión de escritorio de este sitio web!</strong>`
 	}
 ];

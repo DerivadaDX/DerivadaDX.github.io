@@ -28,6 +28,6 @@ this.lang = [
 	},
 	{
 		id: 'secondary_slide-footer',
-		text: `<strong>Don't forget to check more p5.js works on desktop version!</strong>`
+		text: `<strong>Don't forget to see more works in p5.js, in the desktop version of this website!</strong>`
 	}
 ];
