@@ -12,7 +12,7 @@ class LanguageService {
 
 		document.querySelector('head').appendChild(scriptTag);
 
-		scriptTag.onload = () => document.lang.forEach(e => $(`.${e.id}`).html(e.text));
+		scriptTag.onload = () => this.locales.forEach(e => $(`.${e.id}`).html(e.text));
 	}
 
 	setLanguage(lng) {
