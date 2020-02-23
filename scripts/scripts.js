@@ -41,3 +41,7 @@ $().ready(() => {
 		}
 	});
 });
+
+function changeLanguage(active) {
+	document.languageService.setLanguage(active);
+}
