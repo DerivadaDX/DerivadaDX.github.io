@@ -1,4 +1,4 @@
-this.lang = [
+document.lang = [
 	{
 		id: 'main_slide-introduction',
 		text: `
