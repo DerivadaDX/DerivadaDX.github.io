@@ -1,6 +1,10 @@
 $().ready(() => {
-	document.languageService = new LanguageService();
-	document.languageService.initialize();
+	const svc = new LanguageService();
+	
+	document.languageService = svc;
+	svc.initialize();
+
+	$(`#${svc.lng}-button`).addClass('active');
 
 	const sk = $('#carousel_sketch_0').css('display') !== 'none' ? 0 : 1;
 	const carousel = $('#main_carousel');
@@ -44,4 +48,6 @@ $().ready(() => {
 
 function changeLanguage(active) {
 	document.languageService.setLanguage(active);
+	$(`.lang-button`).removeClass('active');
+	$(`#${document.languageService.lng}-button`).addClass('active');
 }
