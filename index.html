@@ -16,9 +16,26 @@
 	<!-- styles & scripts -->
 	<link rel="stylesheet" href="./styles/styles.css">
 	<script type="text/javascript" src="./scripts/sketch.js"></script>
+	<script type="text/javascript" src="./scripts/services/languages.js"></script>
 </head>
 
 <body class="bg-black">
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-collapse collapse w-100 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+				<li id="en-button" class="lang-button nav-item">
+					<button class="btn btn-outline-dark nav-link" onclick="changeLanguage('en')">English</button>
+				</li>
+				<li id="es-button" class="lang-button nav-item">
+					<button class="btn btn-outline-dark nav-link" onclick="changeLanguage('es')">Español</button>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
 	<div class="container">
 		<div class="row border border-white rounded my-5">
 			<div class="col-12">

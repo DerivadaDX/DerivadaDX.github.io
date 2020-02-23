@@ -1,4 +1,4 @@
-document.lang = [
+document.languageService.locales = [
 	{
 		id: 'main_slide-introduction',
 		text: `
