@@ -1,3 +1,3 @@
-Project of my web page.
+My web page
 
 Look at it [here](https://derivadadx.github.io/).
