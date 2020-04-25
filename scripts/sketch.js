@@ -230,6 +230,10 @@ getSketches = () => {
 						this._frameCountOfFirstDraw = 0;
 					}
 
+					/**
+					 * Draws the circle with a random radius value.
+					 * @param {number} frameSkip Number of frames that must pass before drawing again.
+					 */
 					draw(frameSkip) {
 						if (frameSkip && !this._frameCountOfFirstDraw) {
 							this._frameCountOfFirstDraw = p.frameCount;
