@@ -224,11 +224,18 @@ getSketches = () => {
 						// radius
 						this._minRadius = config.minRadius ?? 1;
 						this._maxRadius = config.maxRadius ?? 101;
-						this._radius = config.radius ?? (this._minRadius + this._maxRadius) / 2
+						this._radius = config.radius ?? (this._minRadius + this._maxRadius) / 2;
+
+						// control
+						this._frameCountOfFirstDraw = 0;
 					}
 
 					draw(frameSkip) {
-						if (!frameSkip || p.frameCount % frameSkip === 0) {
+						if (frameSkip && !this._frameCountOfFirstDraw) {
+							this._frameCountOfFirstDraw = p.frameCount;
+						}
+
+						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
 							p.push();
 							p.stroke('white');
 							p.ellipse(this._x, this._y, p.random(this._minRadius, this._maxRadius));
