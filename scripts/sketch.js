@@ -150,7 +150,7 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
-					mainCircle.draw();
+					mainCircle.draw(4);
 				};
 
 				class Circle {
