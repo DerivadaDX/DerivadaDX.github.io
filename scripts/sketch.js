@@ -153,6 +153,10 @@ getSketches = () => {
 					mainCircle.draw(4);
 				};
 
+				/**
+				 * Simple representation of a circle from a center and a radius.
+				 * Provides some useful methods for obtaining positions on its circumference.
+				 */
 				class Circle {
 					get x() { return this._x; }
 					get y() { return this._y; }
@@ -203,6 +207,10 @@ getSketches = () => {
 					}
 				}
 
+				/**
+				 * A circle that randomly changes the value of its radius, whose maximum and minimum values can be configured.
+				 * @extends Circle
+				 */
 				class GrowingCircle extends Circle {
 					get minRadius() { return this._minRadius; }
 					get maxRadius() { return this._maxRadius; }
