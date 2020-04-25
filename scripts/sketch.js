@@ -128,18 +128,28 @@ getSketches = () => {
 			fn: (p) => {
 				sketches[2].p5 = p;
 
+				let mainCircle;
+
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
 
 					p.createCanvas(carousel.width(), carousel.height());
+
 					p.background('black');
+					p.noFill();
+
+					mainCircle = new GrowingCircle({
+						x: p.width / 2,
+						y: p.height / 2,
+						maxRadius: 100
+					});
 
 					// Must be at the end
 					sketches[2].initialized = true;
 				};
 
 				p.draw = () => {
-
+					mainCircle.draw();
 				};
 
 				class Circle {
