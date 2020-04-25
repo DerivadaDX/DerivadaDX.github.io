@@ -123,6 +123,29 @@ getSketches = () => {
 					y += yd * yOffset;
 				}
 			}
+		},
+		{
+			fn: (p) => {
+				sketches[2].p5 = p;
+
+				let w, h;
+
+				p.setup = () => {
+					const carousel = $('#main_carousel').parent();
+					h = carousel.height();
+					w = carousel.width();
+
+					p.createCanvas(w, h);
+					p.background('black');
+
+					// Must be at the end
+					sketches[2].initialized = true;
+				};
+
+				p.draw = () => {
+
+				};
+			}
 		}
 	];
 
