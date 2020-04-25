@@ -204,6 +204,12 @@ getSketches = () => {
 				}
 
 				class GrowingCircle extends Circle {
+					get minRadius() { return this._minRadius; }
+					get maxRadius() { return this._maxRadius; }
+
+					set minRadius(mr) { this._minRadius = mr; }
+					set maxRadius(mr) { this._maxRadius = mr; }
+
 					constructor(config) {
 						super(config);
 
