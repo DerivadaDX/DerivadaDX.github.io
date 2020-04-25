@@ -149,6 +149,7 @@ getSketches = () => {
 				};
 
 				p.draw = () => {
+					p.background(50, 0, 50, 25);
 					mainCircle.draw();
 				};
 
