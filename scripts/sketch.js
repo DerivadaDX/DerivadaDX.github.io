@@ -211,11 +211,13 @@ getSketches = () => {
 						this._minRadius = config.minRadius ?? 1;
 					}
 
-					draw() {
-						p.push();
-						p.stroke('white');
-						p.ellipse(this._x, this._y, p.random(this._minRadius, this._maxRadius));
-						p.pop();
+					draw(frameSkip) {
+						if (!frameSkip || p.frameCount % frameSkip === 0) {
+							p.push();
+							p.stroke('white');
+							p.ellipse(this._x, this._y, p.random(this._minRadius, this._maxRadius));
+							p.pop();
+						}
 					}
 				}
 
