@@ -128,14 +128,10 @@ getSketches = () => {
 			fn: (p) => {
 				sketches[2].p5 = p;
 
-				let w, h;
-
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
-					h = carousel.height();
-					w = carousel.width();
 
-					p.createCanvas(w, h);
+					p.createCanvas(carousel.width(), carousel.height());
 					p.background('black');
 
 					// Must be at the end
