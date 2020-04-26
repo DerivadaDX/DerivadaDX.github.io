@@ -179,10 +179,22 @@ getSketches = () => {
 					getRadius() { return this.radius; }
 					getCenter() { return this.center; }
 
-					setX(x) { this.x = x; }
-					setY(y) { this.y = y; }
-					setRadius(r) { this.radius = r; }
-					setCenter(c) { this.center = c; }
+					setX(x) {
+						this.x = x;
+						return this;
+					}
+					setY(y) {
+						this.y = y;
+						return this;
+					}
+					setRadius(r) {
+						this.radius = r;
+						return this;
+					}
+					setCenter(c) {
+						this.center = c;
+						return this;
+					}
 
 					draw() {
 						p.push();
@@ -224,9 +236,11 @@ getSketches = () => {
 				class GrowingCircle extends Circle {
 					get minRadius() { return this._minRadius; }
 					get maxRadius() { return this._maxRadius; }
+					get parent() { return this._parent; }
 
 					set minRadius(mr) { this._minRadius = mr; }
 					set maxRadius(mr) { this._maxRadius = mr; }
+					set parent(p) { this._parent = p; }
 
 					constructor(config) {
 						super(config);
@@ -242,9 +256,20 @@ getSketches = () => {
 
 					getMinRadius() { return this.minRadius; }
 					getMaxRadius() { return this.maxRadius; }
+					getParent() { return this.parent; }
 
-					setMinRadius(mr) { this.minRadius = mr; }
-					setMaxRadius(mr) { this.maxRadius = mr; }
+					setMinRadius(mr) {
+						this.minRadius = mr;
+						return this;
+					}
+					setMaxRadius(mr) {
+						this.maxRadius = mr;
+						return this;
+					}
+					setParent(p) {
+						this.parent = p;
+						return this;
+					}
 
 					/**
 					 * Draws the circle with a random radius value.
