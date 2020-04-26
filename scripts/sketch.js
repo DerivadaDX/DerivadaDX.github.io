@@ -209,11 +209,11 @@ getSketches = () => {
 					}
 
 					getXByRadians(rads) {
-						return this._x + this._radius * p.cos(rads);
+						return this.x + this.radius * p.cos(rads);
 					}
 
 					getYByRadians(rads) {
-						return this._y - this._radius * p.sin(rads);
+						return this.y - this.radius * p.sin(rads);
 					}
 				}
 
@@ -258,7 +258,7 @@ getSketches = () => {
 						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
 							p.push();
 							p.stroke('white');
-							p.ellipse(this._x, this._y, 2 * p.random(this._minRadius, this._maxRadius));
+							p.ellipse(this.x, this.y, 2 * p.random(this.minRadius, this.maxRadius));
 							p.pop();
 						}
 					}
