@@ -186,6 +186,9 @@ getSketches = () => {
 						this._radius = config ? (config.radius ?? 0) : 0;
 					}
 
+					/**
+					 * Draws the circle.
+					 */
 					draw() {
 						p.push();
 						p.stroke('white');
