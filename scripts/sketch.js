@@ -232,19 +232,15 @@ getSketches = () => {
 					//#region getters & setters
 					get minRadius() { return this._minRadius; }
 					get maxRadius() { return this._maxRadius; }
-					get parent() { return this._parent; }
 
 					set minRadius(mr) { this._minRadius = mr; }
 					set maxRadius(mr) { this._maxRadius = mr; }
-					set parent(p) { this._parent = p; }
 
 					getMinRadius() { return this.minRadius; }
 					getMaxRadius() { return this.maxRadius; }
-					getParent() { return this.parent; }
 
 					setMinRadius(mr) { this.minRadius = mr; return this; }
 					setMaxRadius(mr) { this.maxRadius = mr; return this; }
-					setParent(p) { this.parent = p; return this; }
 					//#endregion
 
 					constructor(config) {
@@ -254,6 +250,10 @@ getSketches = () => {
 						this._minRadius = config.minRadius ?? 1;
 						this._maxRadius = config.maxRadius ?? 101;
 						this._radius = config.radius ?? this._maxRadius;
+
+						// parent
+						this._angleFromParent = 0;
+						this._distanceFromParent = 0;
 
 						// control
 						this._frameCountOfFirstDraw = 0;
@@ -275,6 +275,23 @@ getSketches = () => {
 							p.pop();
 						}
 					}
+
+					//#region parent
+					setParent(p) {
+						this._parent = p;
+						return this;
+					}
+
+					setAngleFromParent(a) {
+						this.angleFromParent = a;
+						return this;
+					}
+
+					setDistanceFromParent(d) {
+						this.distanceFromParent = d;
+						return this;
+					}
+					//#endregion
 				}
 
 				/**
