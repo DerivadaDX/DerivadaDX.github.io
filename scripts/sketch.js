@@ -158,6 +158,7 @@ getSketches = () => {
 				 * Provides some useful methods for obtaining positions on its circumference.
 				 */
 				class Circle {
+					//#region getters & setters
 					get x() { return this._x; }
 					get y() { return this._y; }
 					get radius() { return this._radius; }
@@ -168,32 +169,21 @@ getSketches = () => {
 					set radius(r) { this._radius = r; }
 					set center(c) { this._x = c.x; this._y = c.y; }
 
-					constructor(config) {
-						this._x = config ? (config.x ?? 0) : 0;
-						this._y = config ? (config.y ?? 0) : 0;
-						this._radius = config ? (config.radius ?? 0) : 0;
-					}
-
 					getX() { return this.x; }
 					getY() { return this.y; }
 					getRadius() { return this.radius; }
 					getCenter() { return this.center; }
 
-					setX(x) {
-						this.x = x;
-						return this;
-					}
-					setY(y) {
-						this.y = y;
-						return this;
-					}
-					setRadius(r) {
-						this.radius = r;
-						return this;
-					}
-					setCenter(c) {
-						this.center = c;
-						return this;
+					setX(x) { this.x = x; return this; }
+					setY(y) { this.y = y; return this; }
+					setRadius(r) { this.radius = r; return this; }
+					setCenter(c) { this.center = c; return this; }
+					//#endregion
+
+					constructor(config) {
+						this._x = config ? (config.x ?? 0) : 0;
+						this._y = config ? (config.y ?? 0) : 0;
+						this._radius = config ? (config.radius ?? 0) : 0;
 					}
 
 					draw() {
@@ -203,6 +193,7 @@ getSketches = () => {
 						p.pop();
 					}
 
+					//#region trigonometry
 					getPointByDegrees(degrees) {
 						let rads = p.radians(degrees);
 
@@ -227,6 +218,7 @@ getSketches = () => {
 					getYByRadians(rads) {
 						return this.y - this.radius * p.sin(rads);
 					}
+					//#endregion
 				}
 
 				/**
@@ -234,6 +226,7 @@ getSketches = () => {
 				 * @extends Circle
 				 */
 				class GrowingCircle extends Circle {
+					//#region getters & setters
 					get minRadius() { return this._minRadius; }
 					get maxRadius() { return this._maxRadius; }
 					get parent() { return this._parent; }
@@ -241,6 +234,15 @@ getSketches = () => {
 					set minRadius(mr) { this._minRadius = mr; }
 					set maxRadius(mr) { this._maxRadius = mr; }
 					set parent(p) { this._parent = p; }
+
+					getMinRadius() { return this.minRadius; }
+					getMaxRadius() { return this.maxRadius; }
+					getParent() { return this.parent; }
+
+					setMinRadius(mr) { this.minRadius = mr; return this; }
+					setMaxRadius(mr) { this.maxRadius = mr; return this; }
+					setParent(p) { this.parent = p; return this; }
+					//#endregion
 
 					constructor(config) {
 						super(config);
@@ -252,23 +254,6 @@ getSketches = () => {
 
 						// control
 						this._frameCountOfFirstDraw = 0;
-					}
-
-					getMinRadius() { return this.minRadius; }
-					getMaxRadius() { return this.maxRadius; }
-					getParent() { return this.parent; }
-
-					setMinRadius(mr) {
-						this.minRadius = mr;
-						return this;
-					}
-					setMaxRadius(mr) {
-						this.maxRadius = mr;
-						return this;
-					}
-					setParent(p) {
-						this.parent = p;
-						return this;
 					}
 
 					/**
