@@ -174,6 +174,16 @@ getSketches = () => {
 						this._radius = config ? (config.radius ?? 0) : 0;
 					}
 
+					getX() { return this.x; }
+					getY() { return this.y; }
+					getRadius() { return this.radius; }
+					getCenter() { return this.center; }
+
+					setX(x) { this.x = x; }
+					setY(y) { this.y = y; }
+					setRadius(r) { this.radius = r; }
+					setCenter(c) { this.center = c; }
+
 					draw() {
 						p.push();
 						p.stroke('white');
@@ -229,6 +239,12 @@ getSketches = () => {
 						// control
 						this._frameCountOfFirstDraw = 0;
 					}
+
+					getMinRadius() { return this.minRadius; }
+					getMaxRadius() { return this.maxRadius; }
+
+					setMinRadius(mr) { this.minRadius = mr; }
+					setMaxRadius(mr) { this.maxRadius = mr; }
 
 					/**
 					 * Draws the circle with a random radius value.
