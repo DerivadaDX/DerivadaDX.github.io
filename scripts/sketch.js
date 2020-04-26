@@ -283,12 +283,12 @@ getSketches = () => {
 					}
 
 					setAngleFromParent(a) {
-						this.angleFromParent = a;
+						this._angleFromParent = a;
 						return this;
 					}
 
 					setDistanceFromParent(d) {
-						this.distanceFromParent = d;
+						this._distanceFromParent = d;
 						return this;
 					}
 					//#endregion
