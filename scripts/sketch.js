@@ -185,24 +185,24 @@ getSketches = () => {
 						let rads = p.radians(degrees);
 
 						return {
-							x: this._getXByRadians(rads),
-							y: this._getYByRadians(rads),
+							x: this.getXByRadians(rads),
+							y: this.getYByRadians(rads),
 						};
 					}
 
 					getXByDegrees(degrees) {
-						return this._getXByRadians(p.radians(degrees));
+						return this.getXByRadians(p.radians(degrees));
 					}
 
 					getYByDegrees(degrees) {
-						return this._getYByRadians(p.radians(degrees));
+						return this.getYByRadians(p.radians(degrees));
 					}
 
-					_getXByRadians(rads) {
+					getXByRadians(rads) {
 						return this._x + this._radius * p.cos(rads);
 					}
 
-					_getYByRadians(rads) {
+					getYByRadians(rads) {
 						return this._y - this._radius * p.sin(rads);
 					}
 				}
