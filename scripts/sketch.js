@@ -177,7 +177,7 @@ getSketches = () => {
 					draw() {
 						p.push();
 						p.stroke('white');
-						p.ellipse(this.x, this.y, this.radius);
+						p.ellipse(this.x, this.y, 2 * this.radius);
 						p.pop();
 					}
 
@@ -242,7 +242,7 @@ getSketches = () => {
 						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
 							p.push();
 							p.stroke('white');
-							p.ellipse(this._x, this._y, p.random(this._minRadius, this._maxRadius));
+							p.ellipse(this._x, this._y, 2 * p.random(this._minRadius, this._maxRadius));
 							p.pop();
 						}
 					}
