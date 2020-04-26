@@ -197,29 +197,29 @@ getSketches = () => {
 					}
 
 					//#region trigonometry
-					getPointByDegrees(degrees) {
+					getPointByDegrees(degrees, offset) {
 						let rads = p.radians(degrees);
 
 						return {
-							x: this.getXByRadians(rads),
-							y: this.getYByRadians(rads),
+							x: this.getXByRadians(rads, offset),
+							y: this.getYByRadians(rads, offset),
 						};
 					}
 
-					getXByDegrees(degrees) {
-						return this.getXByRadians(p.radians(degrees));
+					getXByDegrees(degrees, offset) {
+						return this.getXByRadians(p.radians(degrees, offset));
 					}
 
-					getYByDegrees(degrees) {
-						return this.getYByRadians(p.radians(degrees));
+					getYByDegrees(degrees, offset) {
+						return this.getYByRadians(p.radians(degrees, offset));
 					}
 
-					getXByRadians(rads) {
-						return this.x + this.radius * p.cos(rads);
+					getXByRadians(rads, offset) {
+						return this.x + this.radius + (offset ?? 0) * p.cos(rads);
 					}
 
-					getYByRadians(rads) {
-						return this.y - this.radius * p.sin(rads);
+					getYByRadians(rads, offset) {
+						return this.y - this.radius - (offset ?? 0) * p.sin(rads);
 					}
 					//#endregion
 				}
