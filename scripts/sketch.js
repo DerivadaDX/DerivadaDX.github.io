@@ -284,6 +284,8 @@ getSketches = () => {
 						}
 
 						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
+							this._updateCenter();
+
 							p.push();
 							p.stroke('white');
 							p.ellipse(this.x, this.y, 2 * p.random(this.minRadius, this.maxRadius));
