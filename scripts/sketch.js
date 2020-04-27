@@ -131,7 +131,7 @@ getSketches = () => {
 				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
 
 				let mainCircle;
-				let childrensOfMainCircle = [];
+				let childrenOfMainCircle = [];
 
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
@@ -148,14 +148,14 @@ getSketches = () => {
 					});
 
 					for (let times = 0; times < 8; times++) {
-						let children = new GrowingCircle({ maxRadius: 10 });
+						let child = new GrowingCircle({ maxRadius: 10 });
 
-						children
+						child
 							.setAngleFromParent(45 * times)
 							.setDistanceFromParent(50)
 							.setParent(mainCircle);
 
-						childrensOfMainCircle.push(children);
+						childrenOfMainCircle.push(child);
 					}
 
 					// Must be at the end
@@ -165,7 +165,7 @@ getSketches = () => {
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
 					mainCircle.draw(4);
-					childrensOfMainCircle.forEach(c => c.draw(8));
+					childrenOfMainCircle.forEach(c => c.draw(8));
 				};
 
 				/**
