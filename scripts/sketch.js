@@ -217,11 +217,11 @@ getSketches = () => {
 					}
 
 					getXByRadians(rads, offset) {
-						return this.x + this.radius + (offset ?? 0) * p.cos(rads);
+						return this.x + (this.radius + (offset ?? 0)) * p.cos(rads);
 					}
 
 					getYByRadians(rads, offset) {
-						return this.y - this.radius - (offset ?? 0) * p.sin(rads);
+						return this.y - (this.radius + (offset ?? 0)) * p.sin(rads);
 					}
 					//#endregion
 				}
