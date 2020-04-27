@@ -128,6 +128,8 @@ getSketches = () => {
 			fn: (p) => {
 				sketches[2].p5 = p;
 
+				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
+
 				let mainCircle;
 
 				p.setup = () => {
