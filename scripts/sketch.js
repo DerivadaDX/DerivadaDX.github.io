@@ -209,11 +209,11 @@ getSketches = () => {
 					}
 
 					getXByDegrees(degrees, offset) {
-						return this.getXByRadians(p.radians(degrees, offset));
+						return this.getXByRadians(p.radians(degrees), offset);
 					}
 
 					getYByDegrees(degrees, offset) {
-						return this.getYByRadians(p.radians(degrees, offset));
+						return this.getYByRadians(p.radians(degrees), offset);
 					}
 
 					getXByRadians(rads, offset) {
