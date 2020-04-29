@@ -284,10 +284,6 @@ getSketches = () => {
 						this.maxRadius = config.maxRadius ?? 101;
 						this.radius = config.radius ?? this.maxRadius;
 
-						// parent
-						this.angleFromParent = 0;
-						this.distanceFromParent = 0;
-
 						// control
 						this._frameCountOfFirstDraw = 0;
 					}
