@@ -175,21 +175,25 @@ getSketches = () => {
 					get y() { return this._y; }
 					get radius() { return this._radius; }
 					get center() { return { x: this.x, y: this.y }; }
+					get children() { return this._children; }
 
 					set x(x) { this._x = x; }
 					set y(y) { this._y = y; }
 					set radius(r) { this._radius = r; }
 					set center(c) { this._x = c.x; this._y = c.y; }
+					set children(c) { this._children = c; }
 
 					getX() { return this.x; }
 					getY() { return this.y; }
 					getRadius() { return this.radius; }
 					getCenter() { return this.center; }
+					getChildren() { return this._children; }
 
 					setX(x) { this.x = x; return this; }
 					setY(y) { this.y = y; return this; }
 					setRadius(r) { this.radius = r; return this; }
 					setCenter(c) { this.center = c; return this; }
+					setChildren(c) { this._children = c; return this; }
 					//#endregion
 
 					constructor(config) {
@@ -197,7 +201,7 @@ getSketches = () => {
 						this._y = config ? (config.y ?? 0) : 0;
 						this._radius = config ? (config.radius ?? 0) : 0;
 
-						this.children = [];
+						this._children = [];
 					}
 
 					/**
@@ -213,7 +217,7 @@ getSketches = () => {
 					//#region parent
 					setParent(p) {
 						this._parent = p;
-						this._parent.children.push(this);
+						this._parent._children.push(this);
 						this._updateCenter();
 						return this;
 					}
