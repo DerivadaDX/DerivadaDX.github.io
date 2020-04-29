@@ -188,14 +188,16 @@ getSketches = () => {
 					//#endregion
 
 					constructor(config) {
-						this.x = config ? (config.x ?? 0) : 0;
-						this.y = config ? (config.y ?? 0) : 0;
-						this.radius = config ? (config.radius ?? 0) : 0;
+						Object.assign(this, config);
 
-						this.angleFromParent = config ? (config.angleFromParent ?? 0) : 0;
-						this.distanceFromParent = config ? (config.distanceFromParent ?? 0) : 0;
+						this.x = this.x ?? 0;
+						this.y = this.y ?? 0;
+						this.radius = this.radius ?? 0;
 
-						this.children = [];
+						this.children = this.children ?? [];
+
+						this.angleFromParent = this.angleFromParent ?? 0;
+						this.distanceFromParent = this.distanceFromParent ?? 0;
 					}
 
 					/**
