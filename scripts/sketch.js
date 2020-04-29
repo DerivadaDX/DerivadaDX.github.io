@@ -285,10 +285,12 @@ getSketches = () => {
 					constructor(config) {
 						super(config);
 
+						Object.assign(this, config);
+
 						// radius
-						this.minRadius = config.minRadius ?? 1;
-						this.maxRadius = config.maxRadius ?? 101;
-						this.radius = config.radius ?? this.maxRadius;
+						this.minRadius = this.minRadius ?? 1;
+						this.maxRadius = this.maxRadius ?? 101;
+						this.radius = this.radius ?? this.maxRadius;
 
 						// control
 						this._frameCountOfFirstDraw = 0;
