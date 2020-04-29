@@ -201,6 +201,9 @@ getSketches = () => {
 						this._y = config ? (config.y ?? 0) : 0;
 						this._radius = config ? (config.radius ?? 0) : 0;
 
+						this._angleFromParent = config ? (config.angleFromParent ?? 0) : 0;
+						this._distanceFromParent = config ? (config.distanceFromParent ?? 0) : 0;
+
 						this._children = [];
 					}
 
