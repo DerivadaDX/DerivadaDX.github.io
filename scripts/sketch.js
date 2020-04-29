@@ -211,6 +211,32 @@ getSketches = () => {
 						p.pop();
 					}
 
+					//#region parent
+					setParent(p) {
+						this._parent = p;
+						this._updateCenter();
+						return this;
+					}
+
+					setAngleFromParent(a) {
+						this._angleFromParent = a;
+						this._updateCenter();
+						return this;
+					}
+
+					setDistanceFromParent(d) {
+						this._distanceFromParent = d;
+						this._updateCenter();
+						return this;
+					}
+
+					_updateCenter() {
+						if (this._parent) {
+							this.center = this._parent.getPointByDegrees(this._angleFromParent, this._distanceFromParent);
+						}
+					}
+					//#endregion
+
 					//#region trigonometry
 					getPointByDegrees(degrees, offset) {
 						let rads = p.radians(degrees);
@@ -292,32 +318,6 @@ getSketches = () => {
 							p.pop();
 						}
 					}
-
-					//#region parent
-					setParent(p) {
-						this._parent = p;
-						this._updateCenter();
-						return this;
-					}
-
-					setAngleFromParent(a) {
-						this._angleFromParent = a;
-						this._updateCenter();
-						return this;
-					}
-
-					setDistanceFromParent(d) {
-						this._distanceFromParent = d;
-						this._updateCenter();
-						return this;
-					}
-
-					_updateCenter() {
-						if (this._parent) {
-							this.center = this._parent.getPointByDegrees(this._angleFromParent, this._distanceFromParent);
-						}
-					}
-					//#endregion
 				}
 
 				/**
