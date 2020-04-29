@@ -292,7 +292,7 @@ getSketches = () => {
 						// radius
 						this.minRadius = this.minRadius ?? 1;
 						this.maxRadius = this.maxRadius ?? 101;
-						this.radius = this.radius ?? this.maxRadius;
+						this.radius = this.maxRadius;
 
 						// control
 						this._frameCountOfFirstDraw = 0;
