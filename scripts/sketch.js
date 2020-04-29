@@ -198,6 +198,8 @@ getSketches = () => {
 
 						this.angleFromParent = this.angleFromParent ?? 0;
 						this.distanceFromParent = this.distanceFromParent ?? 0;
+
+						this.setParent(this.parent);
 					}
 
 					/**
@@ -294,6 +296,8 @@ getSketches = () => {
 
 						// control
 						this._frameCountOfFirstDraw = 0;
+
+						this.setParent(this.parent);
 					}
 
 					/**
