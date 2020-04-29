@@ -213,7 +213,11 @@ getSketches = () => {
 					//#region parent
 					setParent(p) {
 						this.parent = p;
-						this.parent.children.push(this);
+
+						if (this.parent) {
+							this.parent.children.push(this);
+						}
+
 						this.updateCenter();
 						return this;
 					}
