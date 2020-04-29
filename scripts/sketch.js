@@ -171,40 +171,31 @@ getSketches = () => {
 				 */
 				class Circle {
 					//#region getters & setters
-					get x() { return this._x; }
-					get y() { return this._y; }
-					get radius() { return this._radius; }
 					get center() { return { x: this.x, y: this.y }; }
-					get children() { return this._children; }
-
-					set x(x) { this._x = x; }
-					set y(y) { this._y = y; }
-					set radius(r) { this._radius = r; }
-					set center(c) { this._x = c.x; this._y = c.y; }
-					set children(c) { this._children = c; }
+					set center(c) { this.x = c.x; this.y = c.y; }
 
 					getX() { return this.x; }
 					getY() { return this.y; }
 					getRadius() { return this.radius; }
 					getCenter() { return this.center; }
-					getChildren() { return this._children; }
+					getChildren() { return this.children; }
 
 					setX(x) { this.x = x; return this; }
 					setY(y) { this.y = y; return this; }
 					setRadius(r) { this.radius = r; return this; }
 					setCenter(c) { this.center = c; return this; }
-					setChildren(c) { this._children = c; return this; }
+					setChildren(c) { this.children = c; return this; }
 					//#endregion
 
 					constructor(config) {
-						this._x = config ? (config.x ?? 0) : 0;
-						this._y = config ? (config.y ?? 0) : 0;
-						this._radius = config ? (config.radius ?? 0) : 0;
+						this.x = config ? (config.x ?? 0) : 0;
+						this.y = config ? (config.y ?? 0) : 0;
+						this.radius = config ? (config.radius ?? 0) : 0;
 
-						this._angleFromParent = config ? (config.angleFromParent ?? 0) : 0;
-						this._distanceFromParent = config ? (config.distanceFromParent ?? 0) : 0;
+						this.angleFromParent = config ? (config.angleFromParent ?? 0) : 0;
+						this.distanceFromParent = config ? (config.distanceFromParent ?? 0) : 0;
 
-						this._children = [];
+						this.children = [];
 					}
 
 					/**
@@ -219,27 +210,27 @@ getSketches = () => {
 
 					//#region parent
 					setParent(p) {
-						this._parent = p;
-						this._parent._children.push(this);
-						this._updateCenter();
+						this.parent = p;
+						this.parent.children.push(this);
+						this.updateCenter();
 						return this;
 					}
 
 					setAngleFromParent(a) {
-						this._angleFromParent = a;
-						this._updateCenter();
+						this.angleFromParent = a;
+						this.updateCenter();
 						return this;
 					}
 
 					setDistanceFromParent(d) {
-						this._distanceFromParent = d;
-						this._updateCenter();
+						this.distanceFromParent = d;
+						this.updateCenter();
 						return this;
 					}
 
-					_updateCenter() {
-						if (this._parent) {
-							this.center = this._parent.getPointByDegrees(this._angleFromParent, this._distanceFromParent);
+					updateCenter() {
+						if (this.parent) {
+							this.center = this.parent.getPointByDegrees(this.angleFromParent, this.distanceFromParent);
 						}
 					}
 					//#endregion
@@ -278,12 +269,6 @@ getSketches = () => {
 				 */
 				class GrowingCircle extends Circle {
 					//#region getters & setters
-					get minRadius() { return this._minRadius; }
-					get maxRadius() { return this._maxRadius; }
-
-					set minRadius(mr) { this._minRadius = mr; }
-					set maxRadius(mr) { this._maxRadius = mr; }
-
 					getMinRadius() { return this.minRadius; }
 					getMaxRadius() { return this.maxRadius; }
 
@@ -295,13 +280,13 @@ getSketches = () => {
 						super(config);
 
 						// radius
-						this._minRadius = config.minRadius ?? 1;
-						this._maxRadius = config.maxRadius ?? 101;
-						this._radius = config.radius ?? this._maxRadius;
+						this.minRadius = config.minRadius ?? 1;
+						this.maxRadius = config.maxRadius ?? 101;
+						this.radius = config.radius ?? this.maxRadius;
 
 						// parent
-						this._angleFromParent = 0;
-						this._distanceFromParent = 0;
+						this.angleFromParent = 0;
+						this.distanceFromParent = 0;
 
 						// control
 						this._frameCountOfFirstDraw = 0;
@@ -317,7 +302,7 @@ getSketches = () => {
 						}
 
 						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
-							this._updateCenter();
+							this.updateCenter();
 
 							p.push();
 							p.stroke('white');
