@@ -143,16 +143,22 @@ getSketches = () => {
 					mainCircle = new GrowingCircle({
 						x: p.width / 2,
 						y: p.height / 2,
-						maxRadius: 100
+						maxRadius: 50
 					});
 
 					for (let times = 0; times < 8; times++) {
-						let child = new GrowingCircle({
-							maxRadius: 10,
+						let mainCircleChild = new GrowingCircle({
 							parent: mainCircle,
-							distanceFromParent: 50,
+							maxRadius: mainCircle.maxRadius / 4,
+							distanceFromParent: p.abs(100 - mainCircle.maxRadius),
 							angleFromParent: 45 * times,
 						});
+
+						new GrowingCircle({
+							parent: mainCircleChild,
+							maxRadius: mainCircleChild.maxRadius / 2,
+							distanceFromParent: p.abs(50 - mainCircleChild.maxRadius),
+						})
 					}
 
 					// Must be at the end
@@ -162,7 +168,13 @@ getSketches = () => {
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
 					mainCircle.draw(4);
-					mainCircle.children.forEach(c => c.draw(8));
+					mainCircle.children.forEach(c => {
+						c.children.forEach(cc => {
+							cc.setAngleFromParent(p.frameCount);
+							cc.draw(8);
+						});
+						c.draw(8);
+					});
 				};
 
 				/**
