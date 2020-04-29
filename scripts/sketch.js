@@ -147,12 +147,12 @@ getSketches = () => {
 					});
 
 					for (let times = 0; times < 8; times++) {
-						let child = new GrowingCircle({ maxRadius: 10 });
-
-						child
-							.setAngleFromParent(45 * times)
-							.setDistanceFromParent(50)
-							.setParent(mainCircle);
+						let child = new GrowingCircle({
+							maxRadius: 10,
+							parent: mainCircle,
+							distanceFromParent: 50,
+							angleFromParent: 45 * times,
+						});
 					}
 
 					// Must be at the end
