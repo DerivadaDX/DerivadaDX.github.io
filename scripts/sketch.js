@@ -131,7 +131,6 @@ getSketches = () => {
 				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
 
 				let mainCircle;
-				let childrenOfMainCircle = [];
 
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
@@ -154,8 +153,6 @@ getSketches = () => {
 							.setAngleFromParent(45 * times)
 							.setDistanceFromParent(50)
 							.setParent(mainCircle);
-
-						childrenOfMainCircle.push(child);
 					}
 
 					// Must be at the end
@@ -165,7 +162,7 @@ getSketches = () => {
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
 					mainCircle.draw(4);
-					childrenOfMainCircle.forEach(c => c.draw(8));
+					mainCircle.children.forEach(c => c.draw(8));
 				};
 
 				/**
@@ -199,6 +196,8 @@ getSketches = () => {
 						this._x = config ? (config.x ?? 0) : 0;
 						this._y = config ? (config.y ?? 0) : 0;
 						this._radius = config ? (config.radius ?? 0) : 0;
+
+						this.children = [];
 					}
 
 					/**
@@ -214,6 +213,7 @@ getSketches = () => {
 					//#region parent
 					setParent(p) {
 						this._parent = p;
+						this._parent.children.push(this);
 						this._updateCenter();
 						return this;
 					}
