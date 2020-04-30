@@ -158,7 +158,7 @@ getSketches = () => {
 							parent: mainCircleChild,
 							maxRadius: mainCircleChild.maxRadius / 2,
 							distanceFromParent: p.abs(50 - mainCircleChild.maxRadius),
-						})
+						});
 					}
 
 					// Must be at the end
