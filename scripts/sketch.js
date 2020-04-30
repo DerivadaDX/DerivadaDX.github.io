@@ -218,6 +218,8 @@ getSketches = () => {
 					 * Draws the circle.
 					 */
 					draw() {
+						this.updateCenter();
+
 						p.push();
 						p.stroke('white');
 						p.ellipse(this.x, this.y, 2 * this.radius);
