@@ -332,6 +332,10 @@ getSketches = () => {
 							p.pop();
 						}
 					}
+
+					drawAsCircle() {
+						super.draw();
+					}
 				}
 
 				/**
