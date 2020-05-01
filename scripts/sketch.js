@@ -208,8 +208,9 @@ getSketches = () => {
 
 						this.children = this.children ?? [];
 
-						this.angleFromParent = this.angleFromParent ?? 0;
 						this.distanceFromParent = this.distanceFromParent ?? 0;
+						this.angleFromParent = this.angleFromParent ?? 0;
+						this._currentAngle = this.angleFromParent;
 
 						this.setParent(this.parent);
 					}
@@ -218,12 +219,29 @@ getSketches = () => {
 					 * Draws the circle.
 					 */
 					draw() {
-						this.updateCenter();
+						this.update();
 
 						p.push();
 						p.stroke('white');
 						p.ellipse(this.x, this.y, 2 * this.radius);
 						p.pop();
+					}
+
+					update() {
+						this._updateCurrentAngle();
+						this._updateCenter();
+					}
+
+					_updateCurrentAngle() {
+						if (this.static === false) {
+							this._currentAngle = this.angleFromParent * p.frameCount;
+						}
+					}
+
+					_updateCenter() {
+						if (this.parent) {
+							this.center = this.parent.getPointByDegrees(this._currentAngle, this.distanceFromParent);
+						}
 					}
 
 					//#region parent
@@ -234,26 +252,20 @@ getSketches = () => {
 							this.parent.children.push(this);
 						}
 
-						this.updateCenter();
+						this.update();
 						return this;
 					}
 
 					setAngleFromParent(a) {
 						this.angleFromParent = a;
-						this.updateCenter();
+						this.update();
 						return this;
 					}
 
 					setDistanceFromParent(d) {
 						this.distanceFromParent = d;
-						this.updateCenter();
+						this.update();
 						return this;
-					}
-
-					updateCenter() {
-						if (this.parent) {
-							this.center = this.parent.getPointByDegrees(this.angleFromParent, this.distanceFromParent);
-						}
 					}
 					//#endregion
 
@@ -327,7 +339,7 @@ getSketches = () => {
 							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
 						}
 
-						this.updateCenter();
+						this.update();
 
 						p.push();
 						p.stroke('white');
