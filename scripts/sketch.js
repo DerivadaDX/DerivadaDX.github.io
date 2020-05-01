@@ -316,7 +316,7 @@ getSketches = () => {
 
 					/**
 					 * Draws the circle with a random radius value.
-					 * @param {number} frameSkip Number of frames that must pass before drawing again.
+					 * @param {number} frameSkip Number of frames that must pass before changing de radius again.
 					 */
 					draw(frameSkip) {
 						if (frameSkip && !this._frameCountOfFirstDraw) {
@@ -324,13 +324,15 @@ getSketches = () => {
 						}
 
 						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
-							this.updateCenter();
-
-							p.push();
-							p.stroke('white');
-							p.ellipse(this.x, this.y, 2 * p.random(this.minRadius, this.maxRadius));
-							p.pop();
+							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
 						}
+
+						this.updateCenter();
+
+						p.push();
+						p.stroke('white');
+						p.ellipse(this.x, this.y, this._drawingRadius);
+						p.pop();
 					}
 
 					drawAsCircle() {
