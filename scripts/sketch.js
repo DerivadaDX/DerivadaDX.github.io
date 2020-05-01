@@ -324,6 +324,7 @@ getSketches = () => {
 
 						// control
 						this._frameCountOfFirstDraw = 0;
+						this._drawingRadius = this.maxRadius;
 
 						this.setParent(this.parent);
 					}
