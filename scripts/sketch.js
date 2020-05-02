@@ -323,6 +323,7 @@ getSketches = () => {
 						this.radius = this.maxRadius;
 
 						// control
+						this.frameSkip = this.frameSkip ?? 1;
 						this._frameCountOfFirstDraw = 0;
 						this._drawingRadius = this.maxRadius;
 
@@ -334,11 +335,17 @@ getSketches = () => {
 					 * @param {number} frameSkip Number of frames that must pass before changing de radius again.
 					 */
 					draw(frameSkip) {
-						if (frameSkip && !this._frameCountOfFirstDraw) {
-							this._frameCountOfFirstDraw = p.frameCount;
+						if (typeof frameSkip === 'number') {
+							if (!this._frameCountOfFirstDraw) {
+								this._frameCountOfFirstDraw = p.frameCount;
+							}
+
+							if (this.frameSkip !== frameSkip) {
+								this.frameSkip = frameSkip;
+							}
 						}
 
-						if (!frameSkip || (p.frameCount - this._frameCountOfFirstDraw) % frameSkip === 0) {
+						if (this.frameSkip === 1 || (p.frameCount - this._frameCountOfFirstDraw) % this.frameSkip === 0) {
 							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
 						}
 
