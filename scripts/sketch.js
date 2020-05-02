@@ -172,7 +172,7 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
-					mainCircle.drawCascade();
+					mainCircle.drawCircleCascade();
 				};
 
 				/**
@@ -356,6 +356,11 @@ getSketches = () => {
 
 					drawCircle() {
 						super.draw();
+					}
+
+					drawCircleCascade() {
+						this.drawCircle();
+						this.children.forEach(child => child.drawCircleCascade());
 					}
 
 					update() {
