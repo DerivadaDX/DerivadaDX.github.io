@@ -344,7 +344,6 @@ getSketches = () => {
 
 					/**
 					 * Draws the circle with a random radius value.
-					 * @param {number} frameSkip Number of frames that must pass before changing de radius again.
 					 */
 					draw() {
 						this.update();
