@@ -202,15 +202,13 @@ getSketches = () => {
 						this.x = this.x ?? 0;
 						this.y = this.y ?? 0;
 						this.radius = this.radius ?? 0;
-
-						this.children = this.children ?? [];
+						this.static = this.static ?? true;
 
 						this.distanceFromParent = this.distanceFromParent ?? 0;
 						this.angleFromParent = this.angleFromParent ?? 0;
 						this._currentAngle = this.angleFromParent;
 
-						this.static = this.static ?? true;
-
+						this.children = this.children ?? [];
 						this.setParent(this.parent);
 					}
 
