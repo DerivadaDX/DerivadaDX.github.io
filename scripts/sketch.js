@@ -158,6 +158,8 @@ getSketches = () => {
 							parent: mainCircleChild,
 							maxRadius: mainCircleChild.maxRadius / 2,
 							distanceFromParent: p.abs(50 - mainCircleChild.maxRadius),
+							angleFromParent: 1,
+							static: false
 						});
 					}
 
@@ -170,7 +172,6 @@ getSketches = () => {
 					mainCircle.draw(4);
 					mainCircle.children.forEach(c => {
 						c.children.forEach(cc => {
-							cc.setAngleFromParent(p.frameCount);
 							cc.draw(8);
 						});
 						c.draw(8);
