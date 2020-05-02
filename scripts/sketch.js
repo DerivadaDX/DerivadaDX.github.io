@@ -354,7 +354,7 @@ getSketches = () => {
 						p.pop();
 					}
 
-					drawAsCircle() {
+					drawCircle() {
 						super.draw();
 					}
 
