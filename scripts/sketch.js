@@ -314,6 +314,14 @@ getSketches = () => {
 
 					setMinRadius(mr) { this.minRadius = mr; return this; }
 					setMaxRadius(mr) { this.maxRadius = mr; return this; }
+					setFrameSkip(fs) {
+						if (typeof fs === 'number' && this.frameSkip !== fs) {
+							this._frameSkipChange = p.frameCount;
+							this.frameSkip = fs;
+						}
+
+						return this;
+					}
 					//#endregion
 
 					constructor(config) {
@@ -328,7 +336,7 @@ getSketches = () => {
 
 						// control
 						this.frameSkip = this.frameSkip ?? 1;
-						this._frameCountOfFirstDraw = 0;
+						this._frameSkipChange = 0;
 						this._drawingRadius = this.maxRadius;
 
 						this.setParent(this.parent);
@@ -338,17 +346,7 @@ getSketches = () => {
 					 * Draws the circle with a random radius value.
 					 * @param {number} frameSkip Number of frames that must pass before changing de radius again.
 					 */
-					draw(frameSkip) {
-						if (typeof frameSkip === 'number') {
-							if (!this._frameCountOfFirstDraw) {
-								this._frameCountOfFirstDraw = p.frameCount;
-							}
-
-							if (this.frameSkip !== frameSkip) {
-								this.frameSkip = frameSkip;
-							}
-						}
-
+					draw() {
 						this.update();
 
 						p.push();
@@ -367,7 +365,7 @@ getSketches = () => {
 					}
 
 					_updateDrawingRadius() {
-						if (this.frameSkip === 1 || (p.frameCount - this._frameCountOfFirstDraw) % this.frameSkip === 0) {
+						if (this.frameSkip === 1 || (p.frameCount - this._frameSkipChange) % this.frameSkip === 0) {
 							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
 						}
 					}
