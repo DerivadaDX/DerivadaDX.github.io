@@ -259,6 +259,7 @@ getSketches = () => {
 
 					setAngleFromParent(a) {
 						this.angleFromParent = a;
+						this._currentAngle = a;
 						this.update();
 						return this;
 					}
