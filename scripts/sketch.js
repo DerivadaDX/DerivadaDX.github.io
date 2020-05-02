@@ -137,7 +137,6 @@ getSketches = () => {
 
 					p.createCanvas(carousel.width(), carousel.height());
 
-					p.background('black');
 					p.noFill();
 
 					mainCircle = new GrowingCircle({
