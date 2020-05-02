@@ -172,11 +172,7 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
-					mainCircle.draw();
-					mainCircle.children.forEach(c => {
-						c.children.forEach(cc => cc.draw());
-						c.draw();
-					});
+					mainCircle.drawCascade();
 				};
 
 				/**
@@ -229,6 +225,11 @@ getSketches = () => {
 						p.stroke('white');
 						p.ellipse(this.x, this.y, 2 * this.radius);
 						p.pop();
+					}
+
+					drawCascade() {
+						this.draw();
+						this.children.forEach(child => child.drawCascade());
 					}
 
 					update() {
