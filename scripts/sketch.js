@@ -345,10 +345,6 @@ getSketches = () => {
 							}
 						}
 
-						if (this.frameSkip === 1 || (p.frameCount - this._frameCountOfFirstDraw) % this.frameSkip === 0) {
-							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
-						}
-
 						this.update();
 
 						p.push();
@@ -359,6 +355,17 @@ getSketches = () => {
 
 					drawAsCircle() {
 						super.draw();
+					}
+
+					update() {
+						super.update();
+						this._updateDrawingRadius();
+					}
+
+					_updateDrawingRadius() {
+						if (this.frameSkip === 1 || (p.frameCount - this._frameCountOfFirstDraw) % this.frameSkip === 0) {
+							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
+						}
 					}
 				}
 
