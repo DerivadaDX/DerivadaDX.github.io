@@ -164,7 +164,8 @@ getSketches = () => {
 							maxRadius: ref.maxRadius / 2,
 							frameSkip: 8,
 							distanceFromParent: p.abs(50 - ref.maxRadius),
-							angleFromParent: 1,
+							angleFromParent: ref.angleFromParent,
+							step: 1,
 							static: false
 						}));
 					}
@@ -213,6 +214,7 @@ getSketches = () => {
 						this.distanceFromParent = this.distanceFromParent ?? 0;
 						this.angleFromParent = this.angleFromParent ?? 0;
 						this._currentAngle = this.angleFromParent;
+						this.step = this.step ?? 1;
 
 						this.children = this.children ?? [];
 						this.setParent(this.parent);
@@ -242,7 +244,7 @@ getSketches = () => {
 
 					_updateCurrentAngle() {
 						if (this.static === false) {
-							this._currentAngle = this.angleFromParent * p.frameCount;
+							this._currentAngle += this.step;
 						}
 					}
 
