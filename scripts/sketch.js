@@ -138,10 +138,10 @@ getSketches = () => {
 					const carousel = $('#main_carousel').parent();
 
 					p.createCanvas(carousel.width(), carousel.height());
-
 					p.noFill();
 
 					main = new GrowingCircle({
+						id: 'main',
 						x: p.width / 2,
 						y: p.height / 2,
 						maxRadius: 50,
@@ -150,6 +150,7 @@ getSketches = () => {
 
 					for (let times = 0; times < 8; times++) {
 						middle.push(new GrowingCircle({
+							id: 'middle_' + times,
 							parent: main,
 							maxRadius: main.maxRadius / 4,
 							frameSkip: 8,
@@ -160,13 +161,15 @@ getSketches = () => {
 						let ref = middle[times];
 
 						small.push(new GrowingCircle({
+							id: 'small_' + times,
+							index: times,
 							parent: ref,
 							maxRadius: ref.maxRadius / 2,
 							frameSkip: 8,
 							distanceFromParent: p.abs(50 - ref.maxRadius),
-							angleFromParent: ref.angleFromParent,
+							angleFromParent: ref.angleFromParent + 180,
 							step: 1,
-							static: false
+							static: false,
 						}));
 					}
 
@@ -256,6 +259,14 @@ getSketches = () => {
 
 					//#region parent
 					setParent(p) {
+						if (this.parent) {
+							let index = this.parent.children.map(c => c.id).indexOf(this.id);
+
+							if (index > -1) {
+								this.parent.children.splice(index, 1);
+							}
+						}
+
 						this.parent = p;
 
 						if (this.parent) {
