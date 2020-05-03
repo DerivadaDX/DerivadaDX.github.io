@@ -130,7 +130,9 @@ getSketches = () => {
 
 				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
 
-				let mainCircle;
+				let main;
+				let middle = [];
+				let small = [];
 
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
@@ -139,7 +141,7 @@ getSketches = () => {
 
 					p.noFill();
 
-					mainCircle = new GrowingCircle({
+					main = new GrowingCircle({
 						x: p.width / 2,
 						y: p.height / 2,
 						maxRadius: 50,
@@ -147,22 +149,24 @@ getSketches = () => {
 					});
 
 					for (let times = 0; times < 8; times++) {
-						let mainCircleChild = new GrowingCircle({
-							parent: mainCircle,
-							maxRadius: mainCircle.maxRadius / 4,
+						middle.push(new GrowingCircle({
+							parent: main,
+							maxRadius: main.maxRadius / 4,
 							frameSkip: 8,
-							distanceFromParent: p.abs(100 - mainCircle.maxRadius),
+							distanceFromParent: p.abs(100 - main.maxRadius),
 							angleFromParent: 45 * times,
-						});
+						}));
 
-						new GrowingCircle({
-							parent: mainCircleChild,
-							maxRadius: mainCircleChild.maxRadius / 2,
+						let ref = middle[times];
+
+						small.push(new GrowingCircle({
+							parent: ref,
+							maxRadius: ref.maxRadius / 2,
 							frameSkip: 8,
-							distanceFromParent: p.abs(50 - mainCircleChild.maxRadius),
+							distanceFromParent: p.abs(50 - ref.maxRadius),
 							angleFromParent: 1,
 							static: false
-						});
+						}));
 					}
 
 					// Must be at the end
@@ -171,7 +175,7 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
-					mainCircle.drawCircleCascade();
+					main.drawCircleCascade();
 				};
 
 				/**
