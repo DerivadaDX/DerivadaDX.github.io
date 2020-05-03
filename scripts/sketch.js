@@ -180,7 +180,7 @@ getSketches = () => {
 				};
 
 				p.draw = () => {
-					p.background(50, 0, 50, 25);
+					p.background(0, 0, 0, 25);
 
 					if (p.frameCount % 180 === 0) {
 						if ((p.frameCount - frameCountOfClockwiseChange) % 360 === 0) {
@@ -249,6 +249,7 @@ getSketches = () => {
 						this.angleFromParent = this.angleFromParent ?? 0;
 						this._currentAngle = this.angleFromParent;
 						this.step = this.step ?? 1;
+						this.color = this.color ?? 'white';
 
 						this.children = this.children ?? [];
 						this.setParent(this.parent);
@@ -261,7 +262,7 @@ getSketches = () => {
 						this.update();
 
 						p.push();
-						p.stroke('white');
+						p.stroke(this.color);
 						p.ellipse(this.x, this.y, 2 * this.radius);
 						p.pop();
 					}
@@ -396,7 +397,7 @@ getSketches = () => {
 						this.update();
 
 						p.push();
-						p.stroke('white');
+						p.stroke(this.color);
 						p.ellipse(this.x, this.y, this._drawingRadius);
 						p.pop();
 					}
