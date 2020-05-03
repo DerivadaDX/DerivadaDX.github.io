@@ -175,7 +175,9 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(50, 0, 50, 25);
-					main.drawCircleCascade();
+					main.drawCircle();
+					middle.forEach(m => m.drawCircle());
+					small.forEach(s => s.drawCircle());
 				};
 
 				/**
