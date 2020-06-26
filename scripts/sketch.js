@@ -142,33 +142,33 @@ getSketches = () => {
 					p.createCanvas(carousel.width(), carousel.height());
 					p.noFill();
 
-					main = new GrowingCircle({
+					main = new Circle({
 						id: 'main',
 						x: p.width / 2,
 						y: p.height / 2,
-						maxRadius: 50,
+						radius: 50,
 						frameSkip: 4
 					});
 
 					for (let times = 0; times < 8; times++) {
-						middle.push(new GrowingCircle({
+						middle.push(new Circle({
 							id: 'middle_' + times,
 							parent: main,
-							maxRadius: main.maxRadius / 4,
+							radius: main.radius / 4,
 							frameSkip: 8,
-							distanceFromParent: p.abs(100 - main.maxRadius),
+							distanceFromParent: p.abs(100 - main.radius),
 							angleFromParent: 45 * times,
 						}));
 
 						let ref = middle[times];
 
-						small.push(new GrowingCircle({
+						small.push(new Circle({
 							id: 'small_' + times,
 							index: times,
 							parent: ref,
-							maxRadius: ref.maxRadius / 2,
+							radius: ref.radius / 2,
 							frameSkip: 8,
-							distanceFromParent: p.abs(50 - ref.maxRadius),
+							distanceFromParent: p.abs(50 - ref.radius),
 							angleFromParent: ref.angleFromParent + 180,
 							step: 1,
 							static: false,
@@ -201,7 +201,7 @@ getSketches = () => {
 
 								let parent = middle[s.index];
 
-								s.setDistanceFromParent(p.abs(50 - parent.maxRadius));
+								s.setDistanceFromParent(p.abs(50 - parent.radius));
 
 								s.setAngleFromParent(s.angleFromParent);
 								s.setParent(parent);
@@ -210,9 +210,9 @@ getSketches = () => {
 						}
 					}
 
-					main.drawCircle();
-					middle.forEach(m => m.drawCircle());
-					small.forEach(s => s.drawCircle());
+					main.draw();
+					middle.forEach(m => m.draw());
+					small.forEach(s => s.draw());
 				};
 
 				/**
@@ -349,78 +349,6 @@ getSketches = () => {
 						return this.y - (this.radius + (offset ?? 0)) * p.sin(rads);
 					}
 					//#endregion
-				}
-
-				/**
-				 * A circle that randomly changes the value of its radius, whose maximum and minimum values can be configured.
-				 * @extends Circle
-				 */
-				class GrowingCircle extends Circle {
-					//#region getters & setters
-					getMinRadius() { return this.minRadius; }
-					getMaxRadius() { return this.maxRadius; }
-
-					setMinRadius(mr) { this.minRadius = mr; return this; }
-					setMaxRadius(mr) { this.maxRadius = mr; return this; }
-					setFrameSkip(fs) {
-						if (typeof fs === 'number' && this.frameSkip !== fs) {
-							this._frameSkipChange = p.frameCount;
-							this.frameSkip = fs;
-						}
-
-						return this;
-					}
-					//#endregion
-
-					constructor(config) {
-						super(config);
-
-						Object.assign(this, config);
-
-						// radius
-						this.minRadius = this.minRadius ?? 1;
-						this.maxRadius = this.maxRadius ?? 101;
-						this.radius = this.maxRadius;
-
-						// control
-						this.frameSkip = this.frameSkip ?? 1;
-						this._frameSkipChange = 0;
-						this._drawingRadius = this.maxRadius;
-
-						this.setParent(this.parent);
-					}
-
-					/**
-					 * Draws the circle with a random radius value.
-					 */
-					draw() {
-						this.update();
-
-						p.push();
-						p.stroke(this.color);
-						p.ellipse(this.x, this.y, this._drawingRadius);
-						p.pop();
-					}
-
-					drawCircle() {
-						super.draw();
-					}
-
-					drawCircleCascade() {
-						this.drawCircle();
-						this.children.forEach(child => child.drawCircleCascade());
-					}
-
-					update() {
-						super.update();
-						this._updateDrawingRadius();
-					}
-
-					_updateDrawingRadius() {
-						if (this.frameSkip === 1 || (p.frameCount - this._frameSkipChange) % this.frameSkip === 0) {
-							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
-						}
-					}
 				}
 			}
 		}
