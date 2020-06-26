@@ -422,60 +422,6 @@ getSketches = () => {
 						}
 					}
 				}
-
-				/**
-				 * Returns a random p5.Color whose maximum or minimum values ​​can be configured through its RGBA components.
-				 */
-				class ColorRandomizer {
-					constructor(config) {
-						// Asignación de valores a través de configuración o por defecto.
-						this._min = config.min ?? 0;
-						this._max = config.max ?? 256;
-						this._alpha = config.alpha ?? 255;
-
-						// Se limitan valores mínimos y máximos a 0 y 256 respectivamente.
-						if (this._min < 0) this._min = 0;
-						if (this._max > 256) this._max = 256;
-
-						// Asignación de valores a través de configuración.
-						// Los valores por defecto son _min y _max según corresponda.
-						this._minRed = config.minRed ?? this._min;
-						this._maxRed = config.maxRed ?? this._max;
-
-						this._minGreen = config.minGreen ?? this._min;
-						this._maxGreen = config.maxGreen ?? this._max;
-
-						this._minBlue = config.minBlue ?? this._min;
-						this._maxBlue = config.maxBlue ?? this._max;
-
-						this._minAlpha = config.minAlpha;
-						this._maxAlpha = config.maxAlpha;
-
-						// Se limitan valores mínimos y máximos a 0 y 256 respectivamente.
-						if (this._minRed < 0) this._minRed = 0;
-						if (this._maxRed > 256) this._maxRed = 256;
-
-						if (this._minGreen < 0) this._minGreen = 0;
-						if (this._maxGreen > 256) this._maxGreen = 256;
-
-						if (this._minBlue < 0) this._minBlue = 0;
-						if (this._maxBlue > 256) this._maxBlue = 256;
-
-						if (this._minAlpha < 0) this._minAlpha = 0;
-						if (this._maxAlpha > 256) this._maxAlpha = 256;
-					}
-
-					getColor() {
-						return p.color(
-							p.random(this._minRed, this._maxRed),
-							p.random(this._minGreen, this._maxGreen),
-							p.random(this._minBlue, this._maxBlue),
-							(this._minAlpha ?? -1) >= 0 || (this._maxAlpha ?? -1) >= 0
-								? p.random(this._minAlpha ?? 0, this._maxAlpha ?? 256)
-								: this._alpha
-						);
-					}
-				}
 			}
 		}
 	];
