@@ -128,14 +128,6 @@ getSketches = () => {
 			fn: (p) => {
 				sketches[2].p5 = p;
 
-				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
-
-				let main;
-				let middle = [];
-				let small = [];
-				let frameCountOfClockwiseChange = 0;
-				let setMainAsParent = false;
-
 				let circleFlower;
 
 				p.setup = () => {
@@ -149,39 +141,6 @@ getSketches = () => {
 						y: p.height / 2,
 					});
 
-					main = new Circle({
-						id: 'main',
-						x: p.width / 2,
-						y: p.height / 2,
-						radius: 50,
-						frameSkip: 4
-					});
-
-					for (let times = 0; times < 8; times++) {
-						middle.push(new Circle({
-							id: 'middle_' + times,
-							parent: main,
-							radius: main.radius / 4,
-							frameSkip: 8,
-							distanceFromParent: p.abs(100 - main.radius),
-							angleFromParent: 45 * times,
-						}));
-
-						let ref = middle[times];
-
-						small.push(new Circle({
-							id: 'small_' + times,
-							index: times,
-							parent: ref,
-							radius: ref.radius / 2,
-							frameSkip: 8,
-							distanceFromParent: p.abs(50 - ref.radius),
-							angleFromParent: ref.angleFromParent + 180,
-							step: 1,
-							static: false,
-						}));
-					}
-
 					// Must be at the end
 					sketches[2].initialized = true;
 				};
@@ -189,38 +148,6 @@ getSketches = () => {
 				p.draw = () => {
 					p.background(0, 0, 0, 25);
 					circleFlower.draw();
-
-					// if (p.frameCount % 180 === 0) {
-					// 	if ((p.frameCount - frameCountOfClockwiseChange) % 360 === 0) {
-					// 		setMainAsParent = true;
-
-					// 		small.forEach(s => {
-					// 			s.setAngleFromParent(s.angleFromParent - 180);
-					// 			s.setDistanceFromParent(0);
-					// 			s.setParent(main);
-					// 			s.step *= -1;
-					// 		});
-					// 	} else if (setMainAsParent) {
-					// 		frameCountOfClockwiseChange = p.frameCount;
-					// 		setMainAsParent = false;
-
-					// 		small.forEach((s, i, a) => {
-					// 			s.index = (s.index + a.length / 2) % a.length;
-
-					// 			let parent = middle[s.index];
-
-					// 			s.setDistanceFromParent(p.abs(50 - parent.radius));
-
-					// 			s.setAngleFromParent(s.angleFromParent);
-					// 			s.setParent(parent);
-					// 			s.step *= -1;
-					// 		});
-					// 	}
-					// }
-
-					// main.draw();
-					// middle.forEach(m => m.draw());
-					// small.forEach(s => s.draw());
 				};
 
 				/**
