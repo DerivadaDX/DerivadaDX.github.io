@@ -360,6 +360,25 @@ getSketches = () => {
 						this.middle.forEach(m => m.draw());
 						this.small.forEach(s => s.draw());
 					}
+
+					size() {
+						let middle = this.middle[0];
+						let small = this.small[0];
+
+						return 2 * (this.main.radius
+							+ middle.radius
+							+ middle.distanceFromParent
+							+ small.radius
+							+ small.distanceFromParent);
+					}
+
+					setX(x) {
+						this.main.x = x;
+					}
+
+					setY(y) {
+						this.main.y = y;
+					}
 				}
 			}
 		}
