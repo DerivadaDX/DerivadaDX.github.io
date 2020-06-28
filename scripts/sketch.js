@@ -350,6 +350,82 @@ getSketches = () => {
 					}
 					//#endregion
 				}
+
+				class CircleFlower {
+					constructor(config) {
+						Object.assign(this, config);
+
+						this.middle = [];
+						this.small = [];
+
+						this._frameCountOfClockwiseChange = 0;
+						this._setMainAsParent = false;
+
+						this.main = new Circle({
+							id: 'main',
+							x: this.x,
+							y: this.y,
+							radius: 50
+						});
+
+						for (let times = 0; times < 8; times++) {
+							let middle = new Circle({
+								id: 'middle_' + times,
+								parent: this.main,
+								radius: this.main.radius / 4,
+								distanceFromParent: p.abs(100 - this.main.radius),
+								angleFromParent: 45 * times,
+							});
+
+							this.middle.push(middle);
+
+							this.small.push(new Circle({
+								id: 'small_' + times,
+								index: times,
+								parent: middle,
+								radius: middle.radius / 2,
+								distanceFromParent: p.abs(50 - middle.radius),
+								angleFromParent: middle.angleFromParent + 180,
+								static: false,
+								step: 1,
+							}));
+						}
+					}
+
+					draw() {
+						if (p.frameCount % 180 === 0) {
+							if ((p.frameCount - this._frameCountOfClockwiseChange) % 360 === 0) {
+								this._setMainAsParent = true;
+
+								small.forEach(s => {
+									s.setAngleFromParent(s.angleFromParent - 180);
+									s.setDistanceFromParent(0);
+									s.setParent(this.main);
+									s.step *= -1;
+								});
+							} else if (this._setMainAsParent) {
+								this._frameCountOfClockwiseChange = p.frameCount;
+								this._setMainAsParent = false;
+
+								this.small.forEach((s, i, a) => {
+									s.index = (s.index + a.length / 2) % a.length;
+
+									let parent = this.middle[s.index];
+
+									s.setDistanceFromParent(p.abs(50 - parent.radius));
+
+									s.setAngleFromParent(s.angleFromParent);
+									s.setParent(parent);
+									s.step *= -1;
+								});
+							}
+						}
+
+						this.main.draw();
+						this.middle.forEach(m => m.draw());
+						this.small.forEach(s => s.draw());
+					}
+				}
 			}
 		}
 	];
