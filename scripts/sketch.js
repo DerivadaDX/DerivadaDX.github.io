@@ -136,11 +136,18 @@ getSketches = () => {
 				let frameCountOfClockwiseChange = 0;
 				let setMainAsParent = false;
 
+				let circleFlower;
+
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
 
 					p.createCanvas(carousel.width(), carousel.height());
 					p.noFill();
+
+					circleFlower = new CircleFlower({
+						x: p.width / 2,
+						y: p.height / 2,
+					});
 
 					main = new Circle({
 						id: 'main',
@@ -181,38 +188,39 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(0, 0, 0, 25);
+					circleFlower.draw();
 
-					if (p.frameCount % 180 === 0) {
-						if ((p.frameCount - frameCountOfClockwiseChange) % 360 === 0) {
-							setMainAsParent = true;
+					// if (p.frameCount % 180 === 0) {
+					// 	if ((p.frameCount - frameCountOfClockwiseChange) % 360 === 0) {
+					// 		setMainAsParent = true;
 
-							small.forEach(s => {
-								s.setAngleFromParent(s.angleFromParent - 180);
-								s.setDistanceFromParent(0);
-								s.setParent(main);
-								s.step *= -1;
-							});
-						} else if (setMainAsParent) {
-							frameCountOfClockwiseChange = p.frameCount;
-							setMainAsParent = false;
+					// 		small.forEach(s => {
+					// 			s.setAngleFromParent(s.angleFromParent - 180);
+					// 			s.setDistanceFromParent(0);
+					// 			s.setParent(main);
+					// 			s.step *= -1;
+					// 		});
+					// 	} else if (setMainAsParent) {
+					// 		frameCountOfClockwiseChange = p.frameCount;
+					// 		setMainAsParent = false;
 
-							small.forEach((s, i, a) => {
-								s.index = (s.index + a.length / 2) % a.length;
+					// 		small.forEach((s, i, a) => {
+					// 			s.index = (s.index + a.length / 2) % a.length;
 
-								let parent = middle[s.index];
+					// 			let parent = middle[s.index];
 
-								s.setDistanceFromParent(p.abs(50 - parent.radius));
+					// 			s.setDistanceFromParent(p.abs(50 - parent.radius));
 
-								s.setAngleFromParent(s.angleFromParent);
-								s.setParent(parent);
-								s.step *= -1;
-							});
-						}
-					}
+					// 			s.setAngleFromParent(s.angleFromParent);
+					// 			s.setParent(parent);
+					// 			s.step *= -1;
+					// 		});
+					// 	}
+					// }
 
-					main.draw();
-					middle.forEach(m => m.draw());
-					small.forEach(s => s.draw());
+					// main.draw();
+					// middle.forEach(m => m.draw());
+					// small.forEach(s => s.draw());
 				};
 
 				/**
@@ -397,7 +405,7 @@ getSketches = () => {
 							if ((p.frameCount - this._frameCountOfClockwiseChange) % 360 === 0) {
 								this._setMainAsParent = true;
 
-								small.forEach(s => {
+								this.small.forEach(s => {
 									s.setAngleFromParent(s.angleFromParent - 180);
 									s.setDistanceFromParent(0);
 									s.setParent(this.main);
