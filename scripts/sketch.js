@@ -128,13 +128,7 @@ getSketches = () => {
 			fn: (p) => {
 				sketches[2].p5 = p;
 
-				const getMousePoint = () => ({ x: p.mouseX, y: p.mouseY });
-
-				let main;
-				let middle = [];
-				let small = [];
-				let frameCountOfClockwiseChange = 0;
-				let setMainAsParent = false;
+				let circleFlower;
 
 				p.setup = () => {
 					const carousel = $('#main_carousel').parent();
@@ -142,38 +136,10 @@ getSketches = () => {
 					p.createCanvas(carousel.width(), carousel.height());
 					p.noFill();
 
-					main = new GrowingCircle({
-						id: 'main',
+					circleFlower = new CircleFlower({
 						x: p.width / 2,
 						y: p.height / 2,
-						maxRadius: 50,
-						frameSkip: 4
 					});
-
-					for (let times = 0; times < 8; times++) {
-						middle.push(new GrowingCircle({
-							id: 'middle_' + times,
-							parent: main,
-							maxRadius: main.maxRadius / 4,
-							frameSkip: 8,
-							distanceFromParent: p.abs(100 - main.maxRadius),
-							angleFromParent: 45 * times,
-						}));
-
-						let ref = middle[times];
-
-						small.push(new GrowingCircle({
-							id: 'small_' + times,
-							index: times,
-							parent: ref,
-							maxRadius: ref.maxRadius / 2,
-							frameSkip: 8,
-							distanceFromParent: p.abs(50 - ref.maxRadius),
-							angleFromParent: ref.angleFromParent + 180,
-							step: 1,
-							static: false,
-						}));
-					}
 
 					// Must be at the end
 					sketches[2].initialized = true;
@@ -181,38 +147,7 @@ getSketches = () => {
 
 				p.draw = () => {
 					p.background(0, 0, 0, 25);
-
-					if (p.frameCount % 180 === 0) {
-						if ((p.frameCount - frameCountOfClockwiseChange) % 360 === 0) {
-							setMainAsParent = true;
-
-							small.forEach(s => {
-								s.setAngleFromParent(s.angleFromParent - 180);
-								s.setDistanceFromParent(0);
-								s.setParent(main);
-								s.step *= -1;
-							});
-						} else if (setMainAsParent) {
-							frameCountOfClockwiseChange = p.frameCount;
-							setMainAsParent = false;
-
-							small.forEach((s, i, a) => {
-								s.index = (s.index + a.length / 2) % a.length;
-
-								let parent = middle[s.index];
-
-								s.setDistanceFromParent(p.abs(50 - parent.maxRadius));
-
-								s.setAngleFromParent(s.angleFromParent);
-								s.setParent(parent);
-								s.step *= -1;
-							});
-						}
-					}
-
-					main.drawCircle();
-					middle.forEach(m => m.drawCircle());
-					small.forEach(s => s.drawCircle());
+					circleFlower.draw();
 				};
 
 				/**
@@ -351,129 +286,98 @@ getSketches = () => {
 					//#endregion
 				}
 
-				/**
-				 * A circle that randomly changes the value of its radius, whose maximum and minimum values can be configured.
-				 * @extends Circle
-				 */
-				class GrowingCircle extends Circle {
-					//#region getters & setters
-					getMinRadius() { return this.minRadius; }
-					getMaxRadius() { return this.maxRadius; }
-
-					setMinRadius(mr) { this.minRadius = mr; return this; }
-					setMaxRadius(mr) { this.maxRadius = mr; return this; }
-					setFrameSkip(fs) {
-						if (typeof fs === 'number' && this.frameSkip !== fs) {
-							this._frameSkipChange = p.frameCount;
-							this.frameSkip = fs;
-						}
-
-						return this;
-					}
-					//#endregion
-
+				class CircleFlower {
 					constructor(config) {
-						super(config);
-
 						Object.assign(this, config);
 
-						// radius
-						this.minRadius = this.minRadius ?? 1;
-						this.maxRadius = this.maxRadius ?? 101;
-						this.radius = this.maxRadius;
+						this.middle = [];
+						this.small = [];
 
-						// control
-						this.frameSkip = this.frameSkip ?? 1;
-						this._frameSkipChange = 0;
-						this._drawingRadius = this.maxRadius;
+						this._frameCountOfClockwiseChange = 0;
+						this._setMainAsParent = false;
 
-						this.setParent(this.parent);
-					}
+						this.main = new Circle({
+							id: 'main',
+							x: this.x,
+							y: this.y,
+							radius: 50
+						});
 
-					/**
-					 * Draws the circle with a random radius value.
-					 */
-					draw() {
-						this.update();
+						for (let times = 0; times < 8; times++) {
+							let middle = new Circle({
+								id: 'middle_' + times,
+								parent: this.main,
+								radius: this.main.radius / 4,
+								distanceFromParent: p.abs(100 - this.main.radius),
+								angleFromParent: 45 * times,
+							});
 
-						p.push();
-						p.stroke(this.color);
-						p.ellipse(this.x, this.y, this._drawingRadius);
-						p.pop();
-					}
+							this.middle.push(middle);
 
-					drawCircle() {
-						super.draw();
-					}
-
-					drawCircleCascade() {
-						this.drawCircle();
-						this.children.forEach(child => child.drawCircleCascade());
-					}
-
-					update() {
-						super.update();
-						this._updateDrawingRadius();
-					}
-
-					_updateDrawingRadius() {
-						if (this.frameSkip === 1 || (p.frameCount - this._frameSkipChange) % this.frameSkip === 0) {
-							this._drawingRadius = 2 * p.random(this.minRadius, this.maxRadius);
+							this.small.push(new Circle({
+								id: 'small_' + times,
+								index: times,
+								parent: middle,
+								radius: middle.radius / 2,
+								distanceFromParent: p.abs(50 - middle.radius),
+								angleFromParent: middle.angleFromParent + 180,
+								static: false,
+								step: 1,
+							}));
 						}
 					}
-				}
 
-				/**
-				 * Returns a random p5.Color whose maximum or minimum values ​​can be configured through its RGBA components.
-				 */
-				class ColorRandomizer {
-					constructor(config) {
-						// Asignación de valores a través de configuración o por defecto.
-						this._min = config.min ?? 0;
-						this._max = config.max ?? 256;
-						this._alpha = config.alpha ?? 255;
+					draw() {
+						if (p.frameCount % 180 === 0) {
+							if ((p.frameCount - this._frameCountOfClockwiseChange) % 360 === 0) {
+								this._setMainAsParent = true;
 
-						// Se limitan valores mínimos y máximos a 0 y 256 respectivamente.
-						if (this._min < 0) this._min = 0;
-						if (this._max > 256) this._max = 256;
+								this.small.forEach(s => {
+									s.setAngleFromParent(s.angleFromParent - 180);
+									s.setDistanceFromParent(0);
+									s.setParent(this.main);
+									s.step *= -1;
+								});
+							} else if (this._setMainAsParent) {
+								this._frameCountOfClockwiseChange = p.frameCount;
+								this._setMainAsParent = false;
 
-						// Asignación de valores a través de configuración.
-						// Los valores por defecto son _min y _max según corresponda.
-						this._minRed = config.minRed ?? this._min;
-						this._maxRed = config.maxRed ?? this._max;
+								this.small.forEach((s, i, a) => {
+									s.index = (s.index + a.length / 2) % a.length;
 
-						this._minGreen = config.minGreen ?? this._min;
-						this._maxGreen = config.maxGreen ?? this._max;
+									let parent = this.middle[s.index];
 
-						this._minBlue = config.minBlue ?? this._min;
-						this._maxBlue = config.maxBlue ?? this._max;
+									s.setDistanceFromParent(p.abs(50 - parent.radius));
 
-						this._minAlpha = config.minAlpha;
-						this._maxAlpha = config.maxAlpha;
+									s.setAngleFromParent(s.angleFromParent);
+									s.setParent(parent);
+									s.step *= -1;
+								});
+							}
+						}
 
-						// Se limitan valores mínimos y máximos a 0 y 256 respectivamente.
-						if (this._minRed < 0) this._minRed = 0;
-						if (this._maxRed > 256) this._maxRed = 256;
-
-						if (this._minGreen < 0) this._minGreen = 0;
-						if (this._maxGreen > 256) this._maxGreen = 256;
-
-						if (this._minBlue < 0) this._minBlue = 0;
-						if (this._maxBlue > 256) this._maxBlue = 256;
-
-						if (this._minAlpha < 0) this._minAlpha = 0;
-						if (this._maxAlpha > 256) this._maxAlpha = 256;
+						this.main.draw();
+						this.middle.forEach(m => m.draw());
+						this.small.forEach(s => s.draw());
 					}
 
-					getColor() {
-						return p.color(
-							p.random(this._minRed, this._maxRed),
-							p.random(this._minGreen, this._maxGreen),
-							p.random(this._minBlue, this._maxBlue),
-							(this._minAlpha ?? -1) >= 0 || (this._maxAlpha ?? -1) >= 0
-								? p.random(this._minAlpha ?? 0, this._maxAlpha ?? 256)
-								: this._alpha
-						);
+					size() {
+						let middle = this.middle[0];
+						let small = this.small[0];
+
+						return 2 * (this.main.radius
+							+ middle.radius
+							+ middle.distanceFromParent
+							+ small.radius
+							+ small.distanceFromParent);
+					}
+
+					setX(x) {
+						this.main.x = x;
+					}
+
+					setY(y) {
+						this.main.y = y;
 					}
 				}
 			}
